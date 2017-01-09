@@ -42,7 +42,11 @@ include_directories(
 
 # define macros to enable "go to declaration" feature
 if(${SCCC_CONFIG} STREQUAL VCAN_FX15DEV)
-    add_definitions(-DLIBSC_USE_BUTTON=1
+    add_definitions(
+            # from MakeConfig.inc
+            -DMK60F15
+            # from inc/libsc/k60/config
+            -DLIBSC_USE_BUTTON=1
             -DLIBSC_USE_LCD=1
             -DLIBSC_USE_LED=4
             -DLIBSC_USE_MOTOR=1
@@ -86,7 +90,11 @@ if(${SCCC_CONFIG} STREQUAL VCAN_FX15DEV)
             -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPtb16
             )
 elseif(${SCCC_CONFIG} STREQUAL 2016_INNO)
-    add_definitions(-DLIBSC_USE_BATTERY_METER=1
+    add_definitions(
+            # from MakeConfig.inc
+            -DMK60F15
+            # from inc/libsc/k60/config
+            -DLIBSC_USE_BATTERY_METER=1
             -DLIBSC_USE_BUTTON=2
             -DLIBSC_USE_BUZZER=1
             -DLIBSC_USE_ENCODER=2
