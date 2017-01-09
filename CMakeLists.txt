@@ -175,16 +175,19 @@ add_custom_target(VCAN_FX15DEV_make
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=VCAN_FX15DEV all
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 
-# cleaners
-#[[add_custom_target(clean_only
+# cleane-then-builders
+add_custom_target(clean_and_make
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=${SCCC_CONFIG} clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=${SCCC_CONFIG} all
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
-add_custom_target(2016_INNO_clean
+add_custom_target(2016_INNO_clean_and_make
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_INNO clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_INNO all
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
-add_custom_target(VCAN_FX15DEV_clean
+add_custom_target(VCAN_FX15DEV_clean_and_make
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=VCAN_FX15DEV clean
-        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})]]
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=VCAN_FX15DEV all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 
 # for generation of symbols and declarations
 file(GLOB_RECURSE SOURCES src/libbase/*.cpp src/libsc/*.cpp src/libutil/*.cpp)
