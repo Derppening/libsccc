@@ -4,7 +4,7 @@ project(libsccc)
 include(CMakeForceCompiler)
 
 # specify what we're currently working with
-# valid options: david_david_desktop, david_laptop, xanthe
+# valid options: david_desktop, david_laptop, xanthe
 set(COMPILE_ENV david_desktop)
 set(SCCC_CONFIG VCAN_FX15DEV)
 
@@ -1133,25 +1133,124 @@ set(MAKE_VARS SCCC_BUILD=${MAKE_BUILD_TYPE} PWD=${libsccc_SOURCE_DIR} CWD=${PWD}
 add_custom_target(make_once
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=${SCCC_CONFIG} all
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(INNO_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=INNO all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_CAMERA_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_CAMERA all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_CCD_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_CCD all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_INNO_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_INNO all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_INNO_FX_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_INNO_FX all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_MAGNETIC_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_MAGNETIC all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 add_custom_target(VCAN_FX15DEV_make
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=VCAN_FX15DEV all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2015_CAMERA_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_CAMERA all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2015_MAGNETIC_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_MAGNETIC all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2015_CCD_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_CCD all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(VCAN_Z4DEV_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=VCAN_Z4DEV all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2015_CCD2_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_CCD2 all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2015_M2_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_M2 all
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 add_custom_target(2016_INNO_make
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_INNO all
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_CAMERA_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_CAMERA all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_CCD_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_CCD all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_RAIL_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_RAIL all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_MAGNETIC_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_MAGNETIC all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_MAGNETIC_YANG_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_MAGNETIC_YANG all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 
-# cleane-then-builders
-add_custom_target(clean_and_make
+# cleaners
+add_custom_target(clean_only
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=${SCCC_CONFIG} clean
-        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=${SCCC_CONFIG} all
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
-add_custom_target(VCAN_FX15DEV_clean_and_make
+add_custom_target(INNO_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=INNO clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_CAMERA_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_CAMERA clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_CCD_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_CCD clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_INNO_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_INNO clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_INNO_FX_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_INNO_FX clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2014_MAGNETIC_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2014_MAGNETIC clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(VCAN_FX15DEV_clean
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=VCAN_FX15DEV clean
-        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=VCAN_FX15DEV all
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
-add_custom_target(2016_INNO_clean_and_make
+add_custom_target(2015_CAMERA_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_CAMERA clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2015_MAGNETIC_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_MAGNETIC clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2015_CCD_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_CCD clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(VCAN_Z4DEV_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=VCAN_Z4DEV clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2015_CCD2_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_CCD2 clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2015_M2_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2015_M2 clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_INNO_clean
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_INNO clean
-        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_INNO all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_CAMERA_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_CAMERA clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_CCD_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_CCD clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_RAIL_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_RAIL clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_MAGNETIC_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_MAGNETIC clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2016_MAGNETIC_YANG_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_MAGNETIC_YANG clean
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 
 # for generation of symbols and declarations
