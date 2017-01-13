@@ -5,7 +5,7 @@ include(CMakeForceCompiler)
 
 # specify what we're currently working with
 # valid options: david_desktop, david_laptop, xanthe
-set(COMPILE_ENV david_desktop)
+set(COMPILE_ENV david_laptop)
 set(SCCC_CONFIG VCAN_FX15DEV)
 
 # specify the cross compiler
@@ -21,25 +21,8 @@ CMAKE_FORCE_CXX_COMPILER(${CXX} GNU)
 # define the c++ standard and includes to resolve *.h
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 11)
-include_directories(
-        inc
-        inc/libbase
-        inc/libbase/cmsis
-        inc/libbase/k60
-        inc/libbase/k60/cmsis
-        inc/libbase/k60/pinout
-        inc/libbase/kl26/
-        inc/libbase/kl26/cmsis
-        inc/libbase/kl26/pinout
-        inc/libsc
-        inc/libsc/device_h
-        inc/libsc/k60
-        inc/libsc/k60/config
-        inc/libsc/kl26
-        inc/libsc/kl26/config
-        inc/libsc/next
-        inc/libutil
-        )
+
+include_directories(inc)
 
 # define macros to enable "go to declaration" feature
 if(${SCCC_CONFIG} STREQUAL INNO)
@@ -1253,6 +1236,6 @@ add_custom_target(2016_MAGNETIC_YANG_clean
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2016_MAGNETIC_YANG clean
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 
-# for generation of symbols and declarations
+# configuration enabling all resolutions
 file(GLOB_RECURSE SOURCES src/libbase/*.cpp src/libsc/*.cpp src/libutil/*.cpp)
-add_executable(DoNotBuild ${SOURCES})
+add_executable(CurrentConfigSymbols ${SOURCES})
