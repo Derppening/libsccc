@@ -24,14 +24,12 @@ namespace libutil
  * Example:
  * @snippet test/src/kl26/looper_test.cpp code
  */
-class Looper
-{
+class Looper {
 public:
 	typedef std::function<void(const libsc::Timer::TimerInt request,
 			const libsc::Timer::TimerInt actual)> Callback;
 
-	enum struct RepeatMode
-	{
+	enum struct RepeatMode {
 		/// Not repeating
 		kOnce = 0,
 		/// Reduce the time between two calls if the first is delayed
@@ -56,8 +54,7 @@ public:
 	 */
 	void Once();
 
-	void RunAfter(const libsc::Timer::TimerInt ms, const Callback &c)
-	{
+	void RunAfter(const libsc::Timer::TimerInt ms, const Callback &c) {
 		Repeat(ms, c, RepeatMode::kOnce);
 	}
 	/**
@@ -81,8 +78,7 @@ public:
 	 *
 	 * @return
 	 */
-	bool IsBreak() const
-	{
+	bool IsBreak() const {
 		return !m_is_run;
 	}
 

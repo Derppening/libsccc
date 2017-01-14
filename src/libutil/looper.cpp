@@ -19,8 +19,7 @@ using namespace std;
 namespace libutil
 {
 
-struct Looper::RunnerState
-{
+struct Looper::RunnerState {
 	Timer::TimerInt request;
 	Timer::TimerInt start;
 	Callback callback;
@@ -28,73 +27,57 @@ struct Looper::RunnerState
 };
 
 Looper::Looper()
-		: m_is_run(true)
-{}
+		: m_is_run(true) {}
 
-Looper::~Looper()
-{}
+Looper::~Looper() {}
 
-void Looper::Loop()
-{
+void Looper::Loop() {
 	ResetTiming();
-	while (m_is_run)
-	{
+	while (m_is_run) {
 		Once();
 	}
 }
 
-void Looper::Once()
-{
+void Looper::Once() {
 	const Timer::TimerInt now = System::Time();
-	if (now != m_prev)
-	{
+	if (now != m_prev) {
 		Invoke();
 		m_prev = now;
 	}
 }
 
-void Looper::Invoke()
-{
+void Looper::Invoke() {
 	list<RunnerState>::iterator it = m_states.begin();
-	while (it != m_states.end())
-	{
+	while (it != m_states.end()) {
 		const Timer::TimerInt now = System::Time();
 		const Timer::TimerInt duration = Timer::TimeDiff(now, it->start);
-		if (duration >= it->request)
-		{
+		if (duration >= it->request) {
 			it->callback(it->request, duration);
-			switch (it->mode)
-			{
-			case RepeatMode::kOnce:
-				it = m_states.erase(it);
-				break;
-
-			case RepeatMode::kPrecise:
-				it->start += it->request;
-				++it;
-				break;
-
-			case RepeatMode::kLoose:
-				it->start = now;
-				++it;
-				break;
+			switch (it->mode) {
+				case RepeatMode::kOnce:
+					it = m_states.erase(it);
+					break;
+				case RepeatMode::kPrecise:
+					it->start += it->request;
+					++it;
+					break;
+				case RepeatMode::kLoose:
+					it->start = now;
+					++it;
+					break;
 			}
-		}
-		else
-		{
+		} else {
 			++it;
 		}
 	}
 }
 
-void Looper::Break()
-{
+void Looper::Break() {
 	m_is_run = false;
 }
 
 void Looper::Repeat(const Timer::TimerInt ms, const Callback &c,
-		const RepeatMode mode)
-{
+		const RepeatMode mode) {
 	RunnerState rs;
 	rs.request = ms;
 	rs.start = System::Time();
@@ -103,8 +86,7 @@ void Looper::Repeat(const Timer::TimerInt ms, const Callback &c,
 	m_states.push_back(std::move(rs));
 }
 
-void Looper::ResetTiming()
-{
+void Looper::ResetTiming() {
 	m_prev = System::Time();
 }
 

@@ -32,13 +32,10 @@ PositionalPidController<InT_, OutT_>::PositionalPidController(const InT setpoint
 
 		  m_accumulated_error(0.0f),
 		  m_prev_error(0),
-		  m_prev_time(libsc::System::Time())
-
-{}
+		  m_prev_time(libsc::System::Time()) {}
 
 template<typename InT_, typename OutT_>
-void PositionalPidController<InT_, OutT_>::OnCalc(const InT error)
-{
+void PositionalPidController<InT_, OutT_>::OnCalc(const InT error) {
 	using namespace libsc;
 #if MK60DZ10 || MK60D10 || MK60F15
 	using namespace libsc::k60;
@@ -53,8 +50,7 @@ void PositionalPidController<InT_, OutT_>::OnCalc(const InT error)
 	const float p = this->GetKp() * error;
 	m_accumulated_error += error * time_diff;
 	float i = this->GetKi() * m_accumulated_error;
-	if (m_i_limit > 0.0f)
-	{
+	if (m_i_limit > 0.0f) {
 		i = Clamp<float>(-m_i_limit, i, m_i_limit);
 	}
 	const float slope = (error - m_prev_error) / time_diff;
@@ -66,8 +62,7 @@ void PositionalPidController<InT_, OutT_>::OnCalc(const InT error)
 }
 
 template<typename InT_, typename OutT_>
-OutT_ PositionalPidController<InT_, OutT_>::GetControlOut()
-{
+OutT_ PositionalPidController<InT_, OutT_>::GetControlOut() {
 	return this->GetP() + this->GetI() + this->GetD();
 }
 

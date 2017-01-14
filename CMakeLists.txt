@@ -6,7 +6,7 @@ include(CMakeForceCompiler)
 # specify what we're currently working with
 # valid options: david_desktop, david_laptop, xanthe
 set(COMPILE_ENV david_laptop)
-set(SCCC_CONFIG VCAN_FX15DEV)
+set(SCCC_CONFIG 2016_INNO)
 
 # specify the cross compiler
 set(TOOLCHAIN_PREFIX arm-none-eabi-)

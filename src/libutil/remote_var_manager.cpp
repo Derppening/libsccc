@@ -39,9 +39,8 @@ namespace libutil
 namespace
 {
 
-float AsFloat(const uint32_t val)
-{
-	return *reinterpret_cast<const float*>(&val);
+float AsFloat(const uint32_t val) {
+	return reinterpret_cast<const float &>(val);
 }
 
 }
@@ -49,19 +48,15 @@ float AsFloat(const uint32_t val)
 RemoteVarManager::Var::Var()
 		: m_type(Type::kInt),
 		  m_id(0),
-		  m_val(0)
-{}
+		  m_val(0) {}
 
 RemoteVarManager::Var::Var(Var &&rhs)
-		: Var()
-{
+		: Var() {
 	*this = std::move(rhs);
 }
 
-RemoteVarManager::Var& RemoteVarManager::Var::operator=(Var &&rhs)
-{
-	if (this != &rhs)
-	{
+RemoteVarManager::Var& RemoteVarManager::Var::operator=(Var &&rhs) {
+	if (this != &rhs) {
 		m_name = std::move(rhs.m_name);
 		m_type = rhs.m_type;
 		m_id = rhs.m_id;
@@ -71,19 +66,15 @@ RemoteVarManager::Var& RemoteVarManager::Var::operator=(Var &&rhs)
 }
 
 RemoteVarManager::RemoteVarManager(const size_t var_count)
-		: m_buffer_it(0)
-{
+		: m_buffer_it(0) {
 	m_vars.reserve(var_count);
 }
 
-RemoteVarManager::~RemoteVarManager()
-{}
+RemoteVarManager::~RemoteVarManager() {}
 
 RemoteVarManager::Var* RemoteVarManager::Register(const string &name,
-		const Var::Type type)
-{
-	if (m_vars.size() >= m_vars.capacity())
-	{
+		const Var::Type type) {
+	if (m_vars.size() >= m_vars.capacity()) {
 		LOG_WL("RemoteVarManager expanding");
 		assert(false);
 		return nullptr;
@@ -98,10 +89,8 @@ RemoteVarManager::Var* RemoteVarManager::Register(const string &name,
 }
 
 RemoteVarManager::Var* RemoteVarManager::Register(string &&name,
-		const Var::Type type)
-{
-	if (m_vars.size() >= m_vars.capacity())
-	{
+		const Var::Type type) {
+	if (m_vars.size() >= m_vars.capacity()) {
 		LOG_WL("RemoteVarManager expanding");
 		assert(false);
 		return nullptr;
@@ -115,18 +104,13 @@ RemoteVarManager::Var* RemoteVarManager::Register(string &&name,
 	return &m_vars.back();
 }
 
-void RemoteVarManager::Broadcast(UartDevice *uart)
-{
-	for (size_t i = 0; i < m_vars.size(); ++i)
-	{
-		if (m_vars[i].m_type == Var::Type::kInt)
-		{
+void RemoteVarManager::Broadcast(UartDevice *uart) {
+	for (size_t i = 0; i < m_vars.size(); ++i) {
+		if (m_vars[i].m_type == Var::Type::kInt) {
 			uart->SendStr(String::Format("%s,int,%d,%d\n",
 					m_vars[i].m_name.c_str(), m_vars[i].m_id,
 					EndianUtils::HostToBe(m_vars[i].m_val)));
-		}
-		else
-		{
+		} else {
 			uart->SendStr(String::Format("%s,real,%d,%.3f\n",
 					m_vars[i].m_name.c_str(), m_vars[i].m_id,
 					AsFloat(EndianUtils::HostToBe(m_vars[i].m_val))));
@@ -134,20 +118,16 @@ void RemoteVarManager::Broadcast(UartDevice *uart)
 	}
 }
 
-bool RemoteVarManager::OnUartReceiveChar(const Byte *data, const size_t size)
-{
-	for (size_t i = 0; i < size; ++i)
-	{
+bool RemoteVarManager::OnUartReceiveChar(const Byte *data, const size_t size) {
+	for (size_t i = 0; i < size; ++i) {
 		OnUartReceiveSingleChar(data[i]);
 	}
 	return true;
 }
 
-bool RemoteVarManager::OnUartReceiveSingleChar(const Byte data)
-{
+bool RemoteVarManager::OnUartReceiveSingleChar(const Byte data) {
 	m_buffer[m_buffer_it] = data;
-	if (++m_buffer_it >= 5)
-	{
+	if (++m_buffer_it >= 5) {
 		const uint32_t val = m_buffer[1] << 24 | m_buffer[2] << 16
 				| m_buffer[3] << 8 | m_buffer[4];
 		m_vars[(size_t)m_buffer[0]].m_val = val;

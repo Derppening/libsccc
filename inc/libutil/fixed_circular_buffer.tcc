@@ -21,45 +21,32 @@ FixedCircularBuffer<T>::FixedCircularBuffer(const size_t capacity)
 		: m_capacity(capacity),
 		  m_data(new T[capacity]),
 		  m_start(0),
-		  m_end(0)
-{}
+		  m_end(0) {}
 
 template<typename T>
-bool FixedCircularBuffer<T>::PushData(T &&data)
-{
-	if (GetSize() == m_capacity)
-	{
+bool FixedCircularBuffer<T>::PushData(T &&data) {
+	if (GetSize() == m_capacity) {
 		return false;
-	}
-	else
-	{
+	} else {
 		m_data[m_end++ % m_capacity] = std::move(data);
 		return true;
 	}
 }
 
 template<typename T>
-T* FixedCircularBuffer<T>::GetActiveData()
-{
-	if (GetSize() == 0)
-	{
+T* FixedCircularBuffer<T>::GetActiveData() {
+	if (GetSize() == 0) {
 		return nullptr;
-	}
-	else
-	{
+	} else {
 		return &m_data[m_start % m_capacity];
 	}
 }
 
 template<typename T>
-T* FixedCircularBuffer<T>::NextData()
-{
-	if (GetSize() == 0)
-	{
+T* FixedCircularBuffer<T>::NextData() {
+	if (GetSize() == 0) {
 		return nullptr;
-	}
-	else
-	{
+	} else {
 		++m_start;
 		return GetActiveData();
 	}

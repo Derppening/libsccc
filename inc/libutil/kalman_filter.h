@@ -11,8 +11,7 @@
 namespace libutil
 {
 
-class KalmanFilter
-{
+class KalmanFilter {
 public:
 	KalmanFilter(const float q, const float r, const float x, const float p);
 

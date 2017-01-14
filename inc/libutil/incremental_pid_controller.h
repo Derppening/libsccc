@@ -38,18 +38,13 @@ public:
 	 *
 	 * @param value
 	 */
-	void SetILimit(const float value)
-	{
-		m_i_limit = value;
-	}
+	void SetILimit(const float value) { m_i_limit = value; }
 
-	void Reset()
-	{
+	void Reset() {
 		ResetTime();
 	}
 
-	void ResetTime()
-	{
+	void ResetTime() {
 #if MK60DZ10 || MK60D10 || MK60F15
 		m_prev_time = libsc::k60::System::Time();
 #elif MKL26Z4

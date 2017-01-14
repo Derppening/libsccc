@@ -31,12 +31,10 @@ using namespace libbase::k60;
 namespace libutil
 {
 
-class pGrapher
-{
+class pGrapher {
 public:
 
-	class ObjMng
-	{
+	class ObjMng {
 	public:
 
 		explicit ObjMng(void *pObj, Byte len, const std::string &typeName, const std::string &objName)
@@ -44,16 +42,14 @@ public:
 			obj(pObj),
 			len(len),
 			typeName(typeName),
-			varName(objName)
-		{}
+			varName(objName) {}
 
 		explicit ObjMng(volatile void *pObj, Byte len, const std::string &typeName, const std::string &objName)
 		:
 			obj((void *)pObj),
 			len(len),
 			typeName(typeName),
-			varName(objName)
-		{}
+			varName(objName) {}
 
 		~ObjMng() {};
 
@@ -63,12 +59,10 @@ public:
 		std::string					varName;
 	};
 
-	class TypeId
-	{
+	class TypeId {
 	public:
 
-		static void Init()
-		{
+		static void Init() {
 			if (!m_instance)
 				m_instance = new TypeId;
 		}
@@ -104,20 +98,16 @@ public:
 	void removeAllWatchedVar(void);
 
 	template<typename ObjType>
-	void addSharedVar(ObjType *sharedObj, std::string s)
-	{
-		if (!isStarted)
-		{
+	void addSharedVar(ObjType *sharedObj, std::string s) {
+		if (!isStarted) {
 			ObjMng newObj(sharedObj, sizeof(*sharedObj), TypeId::getTypeId(*sharedObj), s);
 			sharedObjMng.push_back(newObj);
 		}
 	}
 
 	template<typename ObjType>
-	void addWatchedVar(ObjType *watchedObj, std::string s)
-	{
-		if (!isStarted)
-		{
+	void addWatchedVar(ObjType *watchedObj, std::string s) {
+		if (!isStarted) {
 			ObjMng newObj(watchedObj, sizeof(*watchedObj), TypeId::getTypeId(*watchedObj), s);
 			watchedObjMng.push_back(newObj);
 		}

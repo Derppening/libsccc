@@ -23,71 +23,34 @@ public:
 
 	OutT Calc(const InT current_val);
 
-	void SetSetpoint(const InT setpoint)
-	{
-		m_setpoint = setpoint;
-	}
+	void SetSetpoint(const InT setpoint) { m_setpoint = setpoint; }
 
-	InT GetSetpoint() const
-	{
-		return m_setpoint;
-	}
+	InT GetSetpoint() const { return m_setpoint; }
 
-	void SetKp(const float kp)
-	{
-		m_kp = kp;
-	}
+	void SetKp(const float kp) { m_kp = kp; }
 
-	float GetKp() const
-	{
-		return m_kp;
-	}
+	float GetKp() const { return m_kp; }
 
-	void SetKi(const float ki)
-	{
-		m_ki = ki;
-	}
+	void SetKi(const float ki) { m_ki = ki; }
 
-	float GetKi() const
-	{
-		return m_ki;
-	}
+	float GetKi() const { return m_ki; }
 
-	void SetKd(const float kd)
-	{
-		m_kd = kd;
-	}
+	void SetKd(const float kd) { m_kd = kd; }
 
-	float GetKd() const
-	{
-		return m_kd;
-	}
+	float GetKd() const { return m_kd; }
 
-	void SetOutputBound(const OutT min, OutT max)
-	{
+	void SetOutputBound(const OutT min, OutT max) {
 		m_min_o = min;
 		m_max_o = max;
 	}
 
-	float GetP() const
-	{
-		return m_p;
-	}
+	float GetP() const { return m_p; }
 
-	float GetI() const
-	{
-		return m_i;
-	}
+	float GetI() const { return m_i; }
 
-	float GetD() const
-	{
-		return m_d;
-	}
+	float GetD() const { return m_d; }
 
-	OutT GetPrevOut() const
-	{
-		return m_prev_out;
-	}
+	OutT GetPrevOut() const { return m_prev_out; }
 
 protected:
 	~PidController()

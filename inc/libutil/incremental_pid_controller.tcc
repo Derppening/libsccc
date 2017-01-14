@@ -27,12 +27,10 @@ IncrementalPidController<InT_, OutT_>::IncrementalPidController(
 
 		  m_prev_error{0, 0},
 		  m_prev_output(0),
-		  m_prev_time(libsc::k60::System::Time())
-{}
+		  m_prev_time(libsc::k60::System::Time()) {}
 
 template<typename InT_, typename OutT_>
-void IncrementalPidController<InT_, OutT_>::OnCalc(const InT error)
-{
+void IncrementalPidController<InT_, OutT_>::OnCalc(const InT error) {
 	using namespace libsc::k60;
 
 	const Timer::TimerInt time = System::Time();
@@ -41,8 +39,7 @@ void IncrementalPidController<InT_, OutT_>::OnCalc(const InT error)
 
 	const float p = this->GetKp() * (error - m_prev_error[0]);
 	float i = this->GetKi() * (error + m_prev_error[0]) * time_diff * 0.5f;
-	if (m_i_limit > 0.0f)
-	{
+	if (m_i_limit > 0.0f) {
 		i = libutil::Clamp<float>(-m_i_limit, i, m_i_limit);
 	}
 	const float d = this->GetKd() * (error - 2 * m_prev_error[0]
@@ -54,8 +51,7 @@ void IncrementalPidController<InT_, OutT_>::OnCalc(const InT error)
 }
 
 template<typename InT_, typename OutT_>
-OutT_ IncrementalPidController<InT_, OutT_>::GetControlOut()
-{
+OutT_ IncrementalPidController<InT_, OutT_>::GetControlOut() {
 	return this->GetP() + this->GetI() + this->GetD();
 }
 

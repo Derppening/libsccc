@@ -13,12 +13,10 @@
 namespace libutil
 {
 
-class EndianUtils
-{
+class EndianUtils {
 public:
 	static bool IsBigEndian();
-	static bool IsLittleEndian()
-	{
+	static bool IsLittleEndian() {
 		return !IsBigEndian();
 	}
 

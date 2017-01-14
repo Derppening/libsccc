@@ -21,13 +21,11 @@ namespace libutil
  * being consumed fast enough
  */
 template<typename T>
-class FixedCircularBuffer
-{
+class FixedCircularBuffer {
 public:
 	explicit FixedCircularBuffer(const size_t capacity);
 
-	uint32_t GetSize() const
-	{
+	uint32_t GetSize() const {
 		return (uint32_t)(m_end - m_start);
 	}
 

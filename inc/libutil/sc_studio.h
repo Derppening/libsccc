@@ -27,26 +27,18 @@
 namespace libutil
 {
 
-class ScStudio
-{
+class ScStudio {
 public:
-	class GraphPack
-	{
+	class GraphPack {
 	public:
 		explicit GraphPack(const size_t count);
 
 		void Pack(const uint8_t id, const int32_t value);
 		void PackF(const uint8_t id, const float value);
 
-		size_t GetCount() const
-		{
-			return m_count;
-		}
+		size_t GetCount() const { return m_count; }
 
-		const Byte* GetData() const
-		{
-			return m_data.get();
-		}
+		const Byte* GetData() const { return m_data.get(); }
 
 	private:
 		size_t m_count;
@@ -54,8 +46,7 @@ public:
 		Byte *m_it;
 	};
 
-	enum struct MessageToken
-	{
+	enum struct MessageToken {
 		kNull = -1,
 		kNop = 0,
 		kString,
@@ -68,13 +59,11 @@ public:
 
 	ScStudio();
 
-	void SetUart(LIBSC_MODULE(UartDevice) *uart)
-	{
+	void SetUart(LIBSC_MODULE(UartDevice) *uart) {
 		m_uart = uart;
 	}
 
-	LIBSC_MODULE(UartDevice)::OnReceiveListener GetUartListener()
-	{
+	LIBSC_MODULE(UartDevice)::OnReceiveListener GetUartListener() {
 #if MK60DZ10 || MK60D10 || MK60F15
 		return std::bind(&ScStudio::OnRx, this, std::placeholders::_1,
 				std::placeholders::_2);
@@ -84,8 +73,7 @@ public:
 	}
 
 	void SendString(const char *str, const size_t size);
-	void SendString(const char *str)
-	{
+	void SendString(const char *str) {
 		SendString(str, strlen(str));
 	}
 	void SendString(std::string &&str);
@@ -98,8 +86,7 @@ public:
 
 private:
 	bool OnRx(const Byte *data, const size_t size);
-	bool OnRx1(const Byte data)
-	{
+	bool OnRx1(const Byte data) {
 		return OnRx(&data, 1);
 	}
 

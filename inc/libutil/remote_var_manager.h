@@ -41,8 +41,7 @@ class UartDevice;
 namespace libutil
 {
 
-class RemoteVarManager
-{
+class RemoteVarManager {
 public:
 #if MK60D10 || MK60DZ10 || MK60F15
 	typedef libsc::k60::UartDevice UartDevice;
@@ -52,11 +51,9 @@ public:
 
 #endif
 
-	class Var
-	{
+	class Var {
 	public:
-		enum struct Type
-		{
+		enum struct Type {
 			kInt,
 			kReal,
 		};
@@ -65,30 +62,15 @@ public:
 
 		Var& operator=(Var &&rhs);
 
-		uint8_t GetId() const
-		{
-			return m_id;
-		}
+		uint8_t GetId() const { return m_id; }
 
-		uint32_t GetInt() const
-		{
-			return m_val;
-		}
+		uint32_t GetInt() const { return m_val; }
 
-		float GetReal() const
-		{
-			return *reinterpret_cast<const volatile float*>(&m_val);
-		}
+		float GetReal() const { return reinterpret_cast<const volatile float &>(m_val); }
 
-		void SetInt(const uint32_t val)
-		{
-			m_val = val;
-		}
+		void SetInt(const uint32_t val) { m_val = val; }
 
-		void SetReal(const float val)
-		{
-			m_val = *reinterpret_cast<const uint32_t*>(&val);
-		}
+		void SetReal(const float val) { m_val = reinterpret_cast<const uint32_t &>(val); }
 
 	private:
 		Var();
