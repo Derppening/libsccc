@@ -5,8 +5,8 @@ include(CMakeForceCompiler)
 
 # specify what we're currently working with
 # valid options: david_desktop, david_laptop, xanthe
-set(COMPILE_ENV david_laptop)
-set(SCCC_CONFIG 2016_INNO)
+set(COMPILE_ENV david_desktop)
+set(SCCC_CONFIG 2017_INNO)
 
 # specify the cross compiler
 set(TOOLCHAIN_PREFIX arm-none-eabi-)
@@ -1081,6 +1081,62 @@ elseif(${SCCC_CONFIG} STREQUAL 2016_MAGNETIC_YANG)
             -DLIBSC_MAGSEN3=libbase::k60::Pin::Name::kPta6
             -DLIBSC_MAGSEN4=libbase::k60::Pin::Name::kPta7
             -DLIBSC_MAGSEN5=libbase::k60::Pin::Name::kPta8
+    )
+elseif(${SCCC_CONFIG} STREQUAL 2017_INNO)
+    add_definitions(
+            # from MakeConfig.inc
+            -DK60_2017_INNO=1
+            -DMK60F15=1
+            # from inc/libsc/k60/config
+            -DLIBSC_USE_BATTERY_METER=1
+            -DLIBSC_USE_BUTTON=2
+            -DLIBSC_USE_BUZZER=1
+            -DLIBSC_USE_ENCODER=2
+            -DLIBSC_USE_JOYSTICK=1
+            -DLIBSC_USE_LCD=1
+            -DLIBSC_USE_LED=4
+            -DLIBSC_USE_MOTOR=2
+            -DLIBSC_USE_OV7725=1
+            -DLIBSC_USE_SERVO=1
+            -DLIBSC_USE_UART=1
+            -DLIBSC_BATTERY_METER=libbase::k60::Adc::Name::kAdc3Ad6A
+            -DLIBSC_BUTTON0=libbase::k60::Pin::Name::kPte7
+            -DLIBSC_BUTTON1=libbase::k60::Pin::Name::kPtc12
+            -DLIBSC_BUZZER0=libbase::k60::Pin::Name::kPta8
+            -DLIBSC_ENCODER0_QDA=libbase::k60::Pin::Name::kPta10
+            -DLIBSC_ENCODER0_QDB=libbase::k60::Pin::Name::kPta11
+            -DLIBSC_ENCODER1_QDA=libbase::k60::Pin::Name::kPta12
+            -DLIBSC_ENCODER1_QDB=libbase::k60::Pin::Name::kPta13
+            -DLIBSC_JOYSTICK0_UP=libbase::k60::Pin::Name::kPtc8
+            -DLIBSC_JOYSTICK0_DOWN=libbase::k60::Pin::Name::kPtc4
+            -DLIBSC_JOYSTICK0_LEFT=libbase::k60::Pin::Name::kPtc5
+            -DLIBSC_JOYSTICK0_RIGHT=libbase::k60::Pin::Name::kPtc6
+            -DLIBSC_JOYSTICK0_SELECT=libbase::k60::Pin::Name::kPtc7
+            -DLIBSC_ST7735R_RST=libbase::k60::Pin::Name::kPte3
+            -DLIBSC_ST7735R_DC=libbase::k60::Pin::Name::kPte0
+            -DLIBSC_ST7735R_CS=libbase::k60::Pin::Name::kPte4
+            -DLIBSC_ST7735R_SDAT=libbase::k60::Pin::Name::kPte1
+            -DLIBSC_ST7735R_SCLK=libbase::k60::Pin::Name::kPte2
+            -DLIBSC_LED0=libbase::k60::Pin::Name::kPte12
+            -DLIBSC_LED1=libbase::k60::Pin::Name::kPte11
+            -DLIBSC_LED2=libbase::k60::Pin::Name::kPte10
+            -DLIBSC_LED3=libbase::k60::Pin::Name::kPte9
+            -DLIBSC_MOTOR0_PWMA=libbase::k60::Pin::Name::kPtd0
+            -DLIBSC_MOTOR0_PWMB=libbase::k60::Pin::Name::kPtd1
+            -DLIBSC_MOTOR0_DEADTIME=1000
+            -DLIBSC_MOTOR1_PWMA=libbase::k60::Pin::Name::kPtd2
+            -DLIBSC_MOTOR1_PWMB=libbase::k60::Pin::Name::kPtd3
+            -DLIBSC_MOTOR1_DEADTIME=1000
+            -DLIBSC_ALTERNATE_MOTOR_CW_PWM=1
+            -DLIBSC_OV77250_VSYNC=libbase::k60::Pin::Name::kPtc2
+            -DLIBSC_OV77250_PCLK=libbase::k60::Pin::Name::kPtb6
+            -DLIBSC_OV77250_DATA0=libbase::k60::Pin::Name::kPtb16
+            -DLIBSC_OV77250_SDA=libbase::k60::Pin::Name::kPtc1
+            -DLIBSC_OV77250_SCL=libbase::k60::Pin::Name::kPtc0
+            -DLIBSC_OV77250_DMA_CH=1
+            -DLIBSC_SERVO0=libbase::k60::Pin::Name::kPta7
+            -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPte25
+            -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPte24
     )
 else()
     message(ERROR Missing/Unknown config '${SCCC_CONFIG}' (set SCCC_CONFIG))
