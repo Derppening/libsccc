@@ -23,11 +23,9 @@
 
 #include "libsc/motor.h"
 
-namespace libsc
-{
+namespace libsc {
 
-class AlternateMotor : public Motor
-{
+class AlternateMotor : public Motor {
 public:
 #if PINOUT_FTM_COUNT
 	typedef LIBBASE_MODULE(FtmPwm) Pwm;
@@ -37,8 +35,7 @@ public:
 
 #endif // PINOUT_FTM_COUNT
 
-	struct Config : public Motor::Config
-	{
+  struct Config : public Motor::Config {
 		uint8_t id;
 	};
 

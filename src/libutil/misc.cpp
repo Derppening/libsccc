@@ -23,42 +23,36 @@
 #include "libutil/misc.h"
 
 #if MK60DZ10 || MK60D10 || MK60F15
-using namespace libsc::k60;
+using libsc::k60::UartDevice;
 
 #elif MKL26Z4
-using namespace libsc::kl26;
+using libsc::kl26::UartDevice;
 
 #endif
 
-namespace libutil
-{
+namespace libutil {
 
-namespace
-{
+namespace {
 
 UartDevice *g_uart = nullptr;
 
-int MyFwriteHandler(int, char *ptr, int len)
-{
-	if (g_uart)
-	{
-		g_uart->SendBuffer(reinterpret_cast<const Byte*>(ptr), len);
-	}
-	return len;
+int MyFwriteHandler(int, char *ptr, int len) {
+  if (g_uart) {
+    g_uart->SendBuffer(reinterpret_cast<const Byte *>(ptr), static_cast<size_t>(len));
+  }
+  return len;
 }
 
+}  // namespace
+
+void InitDefaultFwriteHandler(UartDevice *uart) {
+  g_uart = uart;
+  g_fwrite_handler = MyFwriteHandler;
 }
 
-void InitDefaultFwriteHandler(UartDevice *uart)
-{
-	g_uart = uart;
-	g_fwrite_handler = MyFwriteHandler;
+void UninitDefaultFwriteHandler() {
+  g_uart = nullptr;
+  g_fwrite_handler = nullptr;
 }
 
-void UninitDefaultFwriteHandler()
-{
-	g_uart = nullptr;
-	g_fwrite_handler = nullptr;
-}
-
-}
+}  // namespace libutil

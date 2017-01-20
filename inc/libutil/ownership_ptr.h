@@ -12,118 +12,125 @@
 
 #include <memory>
 
-namespace libutil
-{
+namespace libutil {
 
 /**
  * A managed pointer that might or might not be owned
  */
 template<typename T>
 class OwnershipPtr {
-public:
-	OwnershipPtr()
-			: m_ptr(nullptr),
-			  m_is_owned(false) {}
+ public:
+  OwnershipPtr()
+      : m_ptr(nullptr),
+        m_is_owned(false) {}
 
-	OwnershipPtr(T *const ptr, const bool is_owned)
-			: m_ptr(ptr),
-			  m_is_owned(is_owned) {}
+  OwnershipPtr(T *const ptr, const bool is_owned)
+      : m_ptr(ptr),
+        m_is_owned(is_owned) {}
 
-	OwnershipPtr(T *const ptr)
-			: m_ptr(ptr),
-			  m_is_owned(false) {}
+  /*OwnershipPtr(T *const ptr)
+      : m_ptr(ptr),
+        m_is_owned(false) {}*/
 
-	explicit OwnershipPtr(std::unique_ptr<T> &&ptr)
-			: m_ptr(ptr.release()),
-			  m_is_owned(true) {}
+  explicit OwnershipPtr(T *const ptr)
+      : m_ptr(ptr),
+        m_is_owned(false) {}
 
-	OwnershipPtr(const OwnershipPtr &rhs) = delete;
+  explicit OwnershipPtr(std::unique_ptr<T> &&ptr)
+      : m_ptr(ptr.release()),
+        m_is_owned(true) {}
 
-	OwnershipPtr(OwnershipPtr &&rhs)
-			: m_ptr(rhs.m_ptr) {
-		const bool is_owned = rhs.m_is_owned;
-		rhs.m_is_owned = false;
-		m_is_owned = is_owned;
-	}
+  OwnershipPtr(const OwnershipPtr &rhs) = delete;
 
-	~OwnershipPtr() {
-		if (m_is_owned) {
-			delete m_ptr;
-		}
-	}
+  OwnershipPtr(OwnershipPtr &&rhs)
+      : m_ptr(rhs.m_ptr) {
+    const bool is_owned = rhs.m_is_owned;
+    rhs.m_is_owned = false;
+    m_is_owned = is_owned;
+  }
 
-	T* operator->() const { return get(); }
+  ~OwnershipPtr() {
+    if (m_is_owned) {
+      delete m_ptr;
+    }
+  }
 
-	T& operator*() const { return *get(); }
+  T *operator->() const { return get(); }
 
-	T* get() const { return m_ptr; }
+  T &operator*() const { return *get(); }
 
-	T* release() const {
-		T *ptr = get();
-		m_ptr = nullptr;
-		m_is_owned = false;
-		return ptr;
-	}
+  T *get() const { return m_ptr; }
 
-private:
-	T *m_ptr;
-	bool m_is_owned;
+  T *release() const {
+    T *ptr = get();
+    m_ptr = nullptr;
+    m_is_owned = false;
+    return ptr;
+  }
+
+ private:
+  T *m_ptr;
+  bool m_is_owned;
 };
 
 template<typename T>
 class OwnershipPtr<T[]> {
-public:
-	OwnershipPtr()
-			: m_ptr(nullptr),
-			  m_is_owned(false) {}
+ public:
+  OwnershipPtr()
+      : m_ptr(nullptr),
+        m_is_owned(false) {}
 
-	OwnershipPtr(T *const ptr, const bool is_owned)
-			: m_ptr(ptr),
-			  m_is_owned(is_owned) {}
+  OwnershipPtr(T *const ptr, const bool is_owned)
+      : m_ptr(ptr),
+        m_is_owned(is_owned) {}
 
-	OwnershipPtr(T *const ptr)
-			: m_ptr(ptr),
-			  m_is_owned(false) {}
+  /*OwnershipPtr(T *const ptr)
+      : m_ptr(ptr),
+        m_is_owned(false) {}*/
 
-	explicit OwnershipPtr(std::unique_ptr<T> &&ptr)
-			: m_ptr(ptr.release()),
-			  m_is_owned(true) {}
+  explicit OwnershipPtr(T *const ptr)
+      : m_ptr(ptr),
+        m_is_owned(false) {}
 
-	OwnershipPtr(const OwnershipPtr &rhs) = delete;
+  explicit OwnershipPtr(std::unique_ptr<T> &&ptr)
+      : m_ptr(ptr.release()),
+        m_is_owned(true) {}
 
-	OwnershipPtr(OwnershipPtr &&rhs)
-			: m_ptr(rhs.m_ptr) {
-		const bool is_owned = rhs.m_is_owned;
-		rhs.m_is_owned = false;
-		m_is_owned = is_owned;
-	}
+  OwnershipPtr(const OwnershipPtr &rhs) = delete;
 
-	~OwnershipPtr() {
-		if (m_is_owned) {
-			delete[] m_ptr;
-		}
-	}
+  OwnershipPtr(OwnershipPtr &&rhs)
+      : m_ptr(rhs.m_ptr) {
+    const bool is_owned = rhs.m_is_owned;
+    rhs.m_is_owned = false;
+    m_is_owned = is_owned;
+  }
 
-	T* operator->() const { return get(); }
+  ~OwnershipPtr() {
+    if (m_is_owned) {
+      delete[] m_ptr;
+    }
+  }
 
-	T& operator*() const { return *get(); }
+  T *operator->() const { return get(); }
 
-	T& operator[](const size_t position) { return get()[position]; }
+  T &operator*() const { return *get(); }
 
-	const T& operator[](const size_t position) const { return get()[position]; }
+  T &operator[](const size_t position) { return get()[position]; }
 
-	T* get() const { return m_ptr; }
+  const T &operator[](const size_t position) const { return get()[position]; }
 
-	T* release() const {
-		T *ptr = get();
-		m_ptr = nullptr;
-		m_is_owned = false;
-		return ptr;
-	}
+  T *get() const { return m_ptr; }
 
-private:
-	T *m_ptr;
-	bool m_is_owned;
+  T *release() const {
+    T *ptr = get();
+    m_ptr = nullptr;
+    m_is_owned = false;
+    return ptr;
+  }
+
+ private:
+  T *m_ptr;
+  bool m_is_owned;
 };
 
-}
+}  // namespace libutil

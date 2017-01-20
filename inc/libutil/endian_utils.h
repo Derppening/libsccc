@@ -10,39 +10,38 @@
 
 #include <cstdint>
 
-namespace libutil
-{
+namespace libutil {
 
 class EndianUtils {
-public:
-	static bool IsBigEndian();
-	static bool IsLittleEndian() {
-		return !IsBigEndian();
-	}
+ public:
+  static bool IsBigEndian();
+  static bool IsLittleEndian() {
+    return !IsBigEndian();
+  }
 
-	template<typename T>
-	static T Translate(const T from);
-	static uint16_t Translate16(const uint16_t from);
-	static uint32_t Translate32(const uint32_t from);
+  template<typename T>
+  static T Translate(const T from);
+  static uint16_t Translate16(const uint16_t from);
+  static uint32_t Translate32(const uint32_t from);
 
-	/**
-	 * Host to big-endian encoding
-	 *
-	 * @param host Host byte order data
-	 * @return Big-endian data
-	 */
-	template<typename T>
-	static T HostToBe(const T host);
-	/**
-	 * Host to little-endian encoding
-	 *
-	 * @param host Host byte order data
-	 * @return Little-endian data
-	 */
-	template<typename T>
-	static T HostToLe(const T host);
+  /**
+   * Host to big-endian encoding
+   *
+   * @param host Host byte order data
+   * @return Big-endian data
+   */
+  template<typename T>
+  static T HostToBe(const T host);
+  /**
+   * Host to little-endian encoding
+   *
+   * @param host Host byte order data
+   * @return Little-endian data
+   */
+  template<typename T>
+  static T HostToLe(const T host);
 };
 
-}
+}  // namespace libutil
 
 #include "endian_utils.tcc"

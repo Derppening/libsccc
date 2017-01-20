@@ -11,14 +11,11 @@
 #include "libbase/helper.h"
 #include LIBBASE_H(adc)
 
-namespace libsc
-{
+namespace libsc {
 
-class BatteryMeter
-{
+class BatteryMeter {
 public:
-	struct Config
-	{
+  struct Config {
 		float voltage_ratio;
 	};
 

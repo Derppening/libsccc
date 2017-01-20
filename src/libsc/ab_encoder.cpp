@@ -19,13 +19,11 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
 #if LIBSC_USE_ENCODER
 
-Encoder::QuadDecoder::Config AbEncoder::Initializer::GetQuadDecoderConfig() const
-{
+Encoder::QuadDecoder::Config AbEncoder::Initializer::GetQuadDecoderConfig() const {
 	Encoder::QuadDecoder::Config product =
 			Encoder::Initializer::GetQuadDecoderConfig();
 	product.encoding_mode =
@@ -34,8 +32,7 @@ Encoder::QuadDecoder::Config AbEncoder::Initializer::GetQuadDecoderConfig() cons
 }
 
 AbEncoder::AbEncoder(const Config &config)
-		: Encoder(Initializer(config))
-{}
+    : Encoder(Initializer(config)) {}
 
 #else /* LIBSC_USE_ENCODER */
 AbEncoder::AbEncoder(const Config&)

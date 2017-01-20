@@ -15,16 +15,13 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
 #ifdef LIBSC_USE_BATTERY_METER
 
-namespace
-{
+namespace {
 
-Adc::Config GetAdcConfig()
-{
+Adc::Config GetAdcConfig() {
 	Adc::Config config;
 	config.adc = LIBSC_BATTERY_METER;
 	config.speed = Adc::Config::SpeedMode::kExSlow;
@@ -37,20 +34,17 @@ Adc::Config GetAdcConfig()
 
 BatteryMeter::BatteryMeter(const Config &config)
 		: m_adc(GetAdcConfig()),
-		  m_voltage_ratio(1.0f / config.voltage_ratio)
-{
+          m_voltage_ratio(1.0f / config.voltage_ratio) {
 	m_adc.StartConvert();
 }
 
-float BatteryMeter::GetVoltage()
-{
+float BatteryMeter::GetVoltage() {
 	return m_adc.GetResultF() * m_voltage_ratio;
 }
 
 #else
 BatteryMeter::BatteryMeter(const Config&)
-		: m_adc(nullptr), m_voltage_ratio(0.0f)
-{
+		: m_adc(nullptr), m_voltage_ratio(0.0f) {
 	LOG_DL("Configured not to use BatteryMeter");
 }
 float BatteryMeter::GetVoltage() { return 0.0f; }
