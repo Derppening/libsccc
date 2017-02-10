@@ -5,7 +5,7 @@ include(CMakeForceCompiler)
 
 # specify what we're currently working with
 # valid options: david_desktop, david_laptop, xanthe
-set(COMPILE_ENV david_desktop)
+set(COMPILE_ENV david_laptop)
 set(SCCC_CONFIG 2017_INNO)
 
 # specify the cross compiler
@@ -25,7 +25,7 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(inc)
 
 # define macros to enable "go to declaration" feature
-if(${SCCC_CONFIG} STREQUAL INNO)
+if (${SCCC_CONFIG} STREQUAL INNO)
     add_definitions(
             # from MakeConfig.inc
             -DK60_INNO=1
@@ -65,7 +65,7 @@ if(${SCCC_CONFIG} STREQUAL INNO)
             -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPte4
             -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPte5
     )
-elseif(${SCCC_CONFIG} STREQUAL 2014_CAMERA)
+elseif (${SCCC_CONFIG} STREQUAL 2014_CAMERA)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2014_CAMERA=1
@@ -119,7 +119,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2014_CAMERA)
             -DLIBSC_LINEAR_CCD0_SI=libbase::k60::Pin::Name::kPtc0
             -DLIBSC_LINEAR_CCD0_AD=libbase::k60::Pin::Name::kPte0
     )
-elseif(${SCCC_CONFIG} STREQUAL 2014_CCD)
+elseif (${SCCC_CONFIG} STREQUAL 2014_CCD)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2014_CCD=1
@@ -185,7 +185,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2014_CCD)
             -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPtc17
             -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPtc16
     )
-elseif(${SCCC_CONFIG} STREQUAL 2014_INNO)
+elseif (${SCCC_CONFIG} STREQUAL 2014_INNO)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2014_INNO=1
@@ -235,7 +235,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2014_INNO)
             -DLIBSC_MPU6050_SCL=libbase::k60::Pin::Name::kPtb0
             -DLIBSC_MPU6050_SDA=libbase::k60::Pin::Name::kPtb1
     )
-elseif(${SCCC_CONFIG} STREQUAL 2014_INNO_FX)
+elseif (${SCCC_CONFIG} STREQUAL 2014_INNO_FX)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2014_INNO=1
@@ -285,7 +285,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2014_INNO_FX)
             -DLIBSC_MPU6050_SCL=libbase::k60::Pin::Name::kPtb0
             -DLIBSC_MPU6050_SDA=libbase::k60::Pin::Name::kPtb1
     )
-elseif(${SCCC_CONFIG} STREQUAL 2014_MAGNETIC)
+elseif (${SCCC_CONFIG} STREQUAL 2014_MAGNETIC)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2014_MAGNETIC=1
@@ -327,7 +327,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2014_MAGNETIC)
             -DLIBSC_SWITCH3=PTE11
             -DLIBSC_SWITCH4=PTE12
     )
-    if(DEFINED LIBSC_USE_LCD_HW_SPI)
+    if (DEFINED LIBSC_USE_LCD_HW_SPI)
         add_definitions(
                 -DLIBSC_LCD_RST=PTA13
                 -DLIBSC_LCD_DC=PTA17
@@ -336,7 +336,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2014_MAGNETIC)
                 -DLIBSC_LCD_MISO=PTA17
                 -DLIBSC_LCD_SCLK=PTA15
         )
-    else()
+    else ()
         add_definitions(
                 -DLIBSC_LCD_RST=PTA13
                 -DLIBSC_LCD_DC=PTA17
@@ -344,8 +344,8 @@ elseif(${SCCC_CONFIG} STREQUAL 2014_MAGNETIC)
                 -DLIBSC_LCD_SDAT=PTA16
                 -DLIBSC_LCD_SCLK=PTA15
         )
-    endif()
-elseif(${SCCC_CONFIG} STREQUAL VCAN_FX15DEV)
+    endif ()
+elseif (${SCCC_CONFIG} STREQUAL VCAN_FX15DEV)
     add_definitions(
             # from MakeConfig.inc
             -DK60_VCAN_FX15DEV=1
@@ -394,7 +394,7 @@ elseif(${SCCC_CONFIG} STREQUAL VCAN_FX15DEV)
             -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPtb17
             -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPtb16
     )
-elseif(${SCCC_CONFIG} STREQUAL 2015_CAMERA)
+elseif (${SCCC_CONFIG} STREQUAL 2015_CAMERA)
     add_definitions(
             # from MakeConfig.inc
             -DK60_VCAN_FX15DEV=1
@@ -448,7 +448,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2015_CAMERA)
             -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPtd7
             -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPtd6
     )
-elseif(${SCCC_CONFIG} STREQUAL 2015_MAGNETIC)
+elseif (${SCCC_CONFIG} STREQUAL 2015_MAGNETIC)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2015_MAGNETIC=1
@@ -527,7 +527,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2015_MAGNETIC)
             -DLIBSC_YUANYANG_DO=libbase::k60::Pin::Name::kPtc13
             -DLIBSC_YUANYANG_STATE=libbase::k60::Pin::Name::kPtc12
     )
-elseif(${SCCC_CONFIG} STREQUAL 2015_CCD)
+elseif (${SCCC_CONFIG} STREQUAL 2015_CCD)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2015_CCD=1
@@ -585,7 +585,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2015_CCD)
             -DLIBSC_MMA8451Q0_SCL=libbase::k60::Pin::Name::kPtb0
             -DLIBSC_MMA8451Q0_SDA=libbase::k60::Pin::Name::kPtb1
     )
-elseif(${SCCC_CONFIG} STREQUAL VCAN_Z4DEV)
+elseif (${SCCC_CONFIG} STREQUAL VCAN_Z4DEV)
     add_definitions(
             # from MakeConfig.inc
             -DKL26_VCAN_Z4DEV=1
@@ -630,7 +630,7 @@ elseif(${SCCC_CONFIG} STREQUAL VCAN_Z4DEV)
             -DLIBSC_US1000_TX=libbase::kl26::Pin::Name::kPte0
             -DLIBSC_US1000_RX=libbase::kl26::Pin::Name::kPte1
     )
-elseif(${SCCC_CONFIG} STREQUAL 2015_CCD2)
+elseif (${SCCC_CONFIG} STREQUAL 2015_CCD2)
     add_definitions(
             # from MakeConfig.inc
             -DKL26_2015_CCD2=1
@@ -689,7 +689,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2015_CCD2)
             -DLIBSC_BATTERY_METER=libbase::kl26::Adc::Name::kAdc0DAd3
             -DLIBSC_BUZZER0=libbase::kl26::Pin::Name::kPta13;
     )
-elseif(${SCCC_CONFIG} STREQUAL 2015_M2)
+elseif (${SCCC_CONFIG} STREQUAL 2015_M2)
     add_definitions(
             # from MakeConfig.inc
             -DKL26_2015_M2=1
@@ -728,7 +728,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2015_M2)
             -DLIBSC_SERVO0=libbase::kl26::Pin::Name::kPtb2
             -DLIBSC_BATTERY_METER=libbase::kl26::Adc::Name::kAdc0DAd3
     )
-elseif(${SCCC_CONFIG} STREQUAL 2016_INNO)
+elseif (${SCCC_CONFIG} STREQUAL 2016_INNO)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2016_INNO=1
@@ -791,7 +791,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2016_INNO)
             -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPtd7
             -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPtd6
     )
-elseif(${SCCC_CONFIG} STREQUAL 2016_CAMERA)
+elseif (${SCCC_CONFIG} STREQUAL 2016_CAMERA)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2016_CAMERA=1
@@ -849,7 +849,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2016_CAMERA)
             -DLIBSC_MMA8451Q0_SCL libbase::k60::Pin::Name::kPtb0
             -DLIBSC_MMA8451Q0_SDA libbase::k60::Pin::Name::kPtb1
     )
-elseif(${SCCC_CONFIG} STREQUAL 2016_CCD)
+elseif (${SCCC_CONFIG} STREQUAL 2016_CCD)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2016_CCD=1
@@ -906,7 +906,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2016_CCD)
             -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPtd7
             -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPtd6
     )
-elseif(${SCCC_CONFIG} STREQUAL 2016_RAIL)
+elseif (${SCCC_CONFIG} STREQUAL 2016_RAIL)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2016_RAIL=1
@@ -961,7 +961,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2016_RAIL)
             -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPtd7
             -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPtd6
     )
-elseif(${SCCC_CONFIG} STREQUAL 2016_MAGNETIC)
+elseif (${SCCC_CONFIG} STREQUAL 2016_MAGNETIC)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2016_MAGNETIC=1
@@ -1021,7 +1021,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2016_MAGNETIC)
             -DLIBSC_MMA8451Q0_SCL=libbase::k60::Pin::Name::kPtc10
             -DLIBSC_MMA8451Q0_SDA=libbase::k60::Pin::Name::kPtc11
     )
-elseif(${SCCC_CONFIG} STREQUAL 2016_MAGNETIC_YANG)
+elseif (${SCCC_CONFIG} STREQUAL 2016_MAGNETIC_YANG)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2016_MAGNETIC_YANG=1
@@ -1082,7 +1082,7 @@ elseif(${SCCC_CONFIG} STREQUAL 2016_MAGNETIC_YANG)
             -DLIBSC_MAGSEN4=libbase::k60::Pin::Name::kPta7
             -DLIBSC_MAGSEN5=libbase::k60::Pin::Name::kPta8
     )
-elseif(${SCCC_CONFIG} STREQUAL 2017_INNO)
+elseif (${SCCC_CONFIG} STREQUAL 2017_INNO)
     add_definitions(
             # from MakeConfig.inc
             -DK60_2017_INNO=1
@@ -1138,34 +1138,90 @@ elseif(${SCCC_CONFIG} STREQUAL 2017_INNO)
             -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPte25
             -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPte24
     )
-else()
+elseif (${SCCC_CONFIG} STREQUAL 2017_CHASING)
+    add_definitions(
+            # from MakeConfig.inc
+            -DK60_2017_CHASING=1
+            -DMK60F15=1
+            # from inc/libsc/k60/config
+            -DLIBSC_USE_BATTERY_METER=1
+            -DLIBSC_USE_BUTTON=2
+            -DLIBSC_USE_BUZZER=1
+            -DLIBSC_USE_ENCODER=2
+            -DLIBSC_USE_JOYSTICK=1
+            -DLIBSC_USE_LCD=1
+            -DLIBSC_USE_LED=4
+            -DLIBSC_USE_MOTOR=2
+            -DLIBSC_USE_OV7725=1
+            -DLIBSC_USE_SERVO=1
+            -DLIBSC_USE_UART=1
+            -DLIBSC_BATTERY_METER=libbase::k60::Adc::Name::kAdc3Ad6A
+            -DLIBSC_BUTTON0=libbase::k60::Pin::Name::kPte7
+            -DLIBSC_BUTTON1=libbase::k60::Pin::Name::kPtc12
+            -DLIBSC_BUZZER0=libbase::k60::Pin::Name::kPta8
+            -DLIBSC_ENCODER0_QDA=libbase::k60::Pin::Name::kPta10
+            -DLIBSC_ENCODER0_QDB=libbase::k60::Pin::Name::kPta11
+            -DLIBSC_ENCODER1_QDA=libbase::k60::Pin::Name::kPta12
+            -DLIBSC_ENCODER1_QDB=libbase::k60::Pin::Name::kPta13
+            -DLIBSC_JOYSTICK0_UP=libbase::k60::Pin::Name::kPtc8
+            -DLIBSC_JOYSTICK0_DOWN=libbase::k60::Pin::Name::kPtc4
+            -DLIBSC_JOYSTICK0_LEFT=libbase::k60::Pin::Name::kPtc5
+            -DLIBSC_JOYSTICK0_RIGHT=libbase::k60::Pin::Name::kPtc6
+            -DLIBSC_JOYSTICK0_SELECT=libbase::k60::Pin::Name::kPtc7
+            -DLIBSC_ST7735R_RST=libbase::k60::Pin::Name::kPte3
+            -DLIBSC_ST7735R_DC=libbase::k60::Pin::Name::kPte0
+            -DLIBSC_ST7735R_CS=libbase::k60::Pin::Name::kPte4
+            -DLIBSC_ST7735R_SDAT=libbase::k60::Pin::Name::kPte1
+            -DLIBSC_ST7735R_SCLK=libbase::k60::Pin::Name::kPte2
+            -DLIBSC_LED0=libbase::k60::Pin::Name::kPte12
+            -DLIBSC_LED1=libbase::k60::Pin::Name::kPte11
+            -DLIBSC_LED2=libbase::k60::Pin::Name::kPte10
+            -DLIBSC_LED3=libbase::k60::Pin::Name::kPte9
+            -DLIBSC_MOTOR0_PWMA=libbase::k60::Pin::Name::kPtd0
+            -DLIBSC_MOTOR0_PWMB=libbase::k60::Pin::Name::kPtd1
+            -DLIBSC_MOTOR0_DEADTIME=1000
+            -DLIBSC_MOTOR1_PWMA=libbase::k60::Pin::Name::kPtd2
+            -DLIBSC_MOTOR1_PWMB=libbase::k60::Pin::Name::kPtd3
+            -DLIBSC_MOTOR1_DEADTIME=1000
+            -DLIBSC_ALTERNATE_MOTOR_CW_PWM=1
+            -DLIBSC_OV77250_VSYNC=libbase::k60::Pin::Name::kPtc2
+            -DLIBSC_OV77250_PCLK=libbase::k60::Pin::Name::kPtb6
+            -DLIBSC_OV77250_DATA0=libbase::k60::Pin::Name::kPtb16
+            -DLIBSC_OV77250_SDA=libbase::k60::Pin::Name::kPtc1
+            -DLIBSC_OV77250_SCL=libbase::k60::Pin::Name::kPtc0
+            -DLIBSC_OV77250_DMA_CH=1
+            -DLIBSC_SERVO0=libbase::k60::Pin::Name::kPta7
+            -DLIBSC_UART0_TX=libbase::k60::Pin::Name::kPte25
+            -DLIBSC_UART0_RX=libbase::k60::Pin::Name::kPte24
+    )
+else ()
     message(ERROR Missing/Unknown config '${SCCC_CONFIG}' (set SCCC_CONFIG))
-endif()
+endif ()
 
 # set build type according to what we have in CLion
-if(${CMAKE_BUILD_TYPE} STREQUAL Release)
+if (${CMAKE_BUILD_TYPE} STREQUAL Release)
     set(MAKE_BUILD_TYPE RELEASE)
-elseif(${CMAKE_BUILD_TYPE} STREQUAL Debug)
+elseif (${CMAKE_BUILD_TYPE} STREQUAL Debug)
     set(MAKE_BUILD_TYPE DEBUG)
-else()
+else ()
     message(WARNING "No build type configured. Defaulting to Debug")
     set(MAKE_BUILD_TYPE DEBUG)
-endif()
+endif ()
 
 # set make parameters
-if(${COMPILE_ENV} STREQUAL david_desktop)
+if (${COMPILE_ENV} STREQUAL david_desktop)
     set(MAKE_PATH "D:\\Program Files (x86)\\GnuWin32\\bin\\make.exe")
-else()
+else ()
     set(MAKE_PATH "C:\\Program Files (x86)\\GnuWin32\\bin\\make.exe")
-endif()
+endif ()
 set(MAKE_ARGS -f ${libsccc_SOURCE_DIR}/Makefile -k)
-if(${COMPILE_ENV} STREQUAL david_desktop)
+if (${COMPILE_ENV} STREQUAL david_desktop)
     set(MAKE_ARGS ${MAKE_ARGS} -j8)
-elseif(${COMPILE_ENV} STREQUAL xanthe)
+elseif (${COMPILE_ENV} STREQUAL xanthe)
     set(MAKE_ARGS ${MAKE_ARGS} -j2)
-else()
+else ()
     set(MAKE_ARGS ${MAKE_ARGS} -j4)
-endif()
+endif ()
 set(MAKE_VARS SCCC_BUILD=${MAKE_BUILD_TYPE} PWD=${libsccc_SOURCE_DIR} CWD=${PWD})
 
 # buiders
@@ -1232,6 +1288,9 @@ add_custom_target(2016_MAGNETIC_YANG_make
 add_custom_target(2017_INNO_make
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2017_INNO all
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2017_CHASING_make
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2017_CHASING all
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 
 # cleaners
 add_custom_target(clean_only
@@ -1296,6 +1355,9 @@ add_custom_target(2016_MAGNETIC_YANG_clean
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 add_custom_target(2017_INNO_clean
         COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2017_INNO clean
+        WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
+add_custom_target(2017_CHASING_clean
+        COMMAND ${MAKE_PATH} ${MAKE_ARGS} ${MAKE_VARS} SCCC_CONFIG=2017_CHASING clean
         WORKING_DIRECTORY ${libsccc_SOURCE_DIR})
 
 # configuration enabling all resolutions
