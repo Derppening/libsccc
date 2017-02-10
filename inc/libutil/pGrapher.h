@@ -10,11 +10,11 @@
 
 #pragma once
 
-#include <cxxabi.h>
 #include <functional>
 #include <vector>
 #include <typeinfo>
-#include <string>
+#include <string.h>
+#include <cxxabi.h>
 
 #include "libsc/system.h"
 #include "libsc/k60/ftdi_ft232r.h"
@@ -24,118 +24,133 @@
 #define MAX(a, b) ((a > b)? a : b)
 #define inRange(n, v, x) ((v " n)? n : ((v " x)? x : v))
 
-using libsc::k60::FtdiFt232r;
-using libsc::k60::JyMcuBt106;
-using libbase::k60::SysTick;
+using namespace libsc;
+using namespace libsc::k60;
+using namespace libbase::k60;
 
-namespace libutil {
+namespace libutil
+{
 
-class pGrapher {
- public:
-  class ObjMng {
-   public:
-    explicit ObjMng(void *pObj, Byte len, const std::string &typeName, const std::string &objName)
-        :
-        obj(pObj),
-        len(len),
-        typeName(typeName),
-        varName(objName) {}
+class pGrapher
+{
+public:
 
-    explicit ObjMng(volatile void *pObj, Byte len, const std::string &typeName, const std::string &objName)
-        :
-    // obj((void *) pObj),
-        obj(reinterpret_cast<void *>(pObj)),
-        len(len),
-        typeName(typeName),
-        varName(objName) {}
+	class ObjMng
+	{
+	public:
 
-    ~ObjMng() {}
+		explicit ObjMng(void *pObj, Byte len, const std::string &typeName, const std::string &objName)
+		:
+			obj(pObj),
+			len(len),
+			typeName(typeName),
+			varName(objName)
+		{}
 
-    void *obj;
-    Byte len;
-    std::string typeName;
-    std::string varName;
-  };
+		explicit ObjMng(volatile void *pObj, Byte len, const std::string &typeName, const std::string &objName)
+		:
+			obj((void *)pObj),
+			len(len),
+			typeName(typeName),
+			varName(objName)
+		{}
 
-  class TypeId {
-   public:
-    static void Init() {
-      if (!m_instance)
-        m_instance = new TypeId;
-    }
+		~ObjMng() {};
 
-    static std::string getTypeId(uint8_t) { return "unsigned char"; }
-    static std::string getTypeId(int8_t) { return "signed char"; }
-    static std::string getTypeId(uint16_t) { return "unsigned short"; }
-    static std::string getTypeId(int16_t) { return "short"; }
-    static std::string getTypeId(uint32_t) { return "unsigned int"; }
-    static std::string getTypeId(int32_t) { return "int"; }
-    static std::string getTypeId(float) { return "float"; }
-    static std::string getTypeId(int) { return "int"; }
-    template<typename T>
-    static std::string getTypeId(T) { return "wtf?"; }
+		void						*obj;
+		Byte						len;
+		std::string					typeName;
+		std::string					varName;
+	};
 
-   private:
-    static TypeId *m_instance;
-  };
+	class TypeId
+	{
+	public:
 
-  typedef std::function<void(const std::vector<Byte> &)> OnReceiveListener;
-  typedef std::function<void(void)> OnChangedListener;
+		static void Init()
+		{
+			if (!m_instance)
+				m_instance = new TypeId;
+		}
 
-  // explicit pGrapher(void);
-  pGrapher(void);
-  ~pGrapher(void);
+		static std::string getTypeId(uint8_t ) { return "unsigned char"; }
+		static std::string getTypeId(int8_t ) { return "signed char"; }
+		static std::string getTypeId(uint16_t ) { return "unsigned short"; }
+		static std::string getTypeId(int16_t ) { return "short"; }
+		static std::string getTypeId(uint32_t ) { return "unsigned int"; }
+		static std::string getTypeId(int32_t ) { return "int"; }
+		static std::string getTypeId(float ) { return "float"; }
+		static std::string getTypeId(int ) { return "int"; }
+		template<typename T>
+		static std::string getTypeId(T ) { return "wtf?"; }
 
-  void setOnReceiveListener(const OnReceiveListener &oriListener);
-  void setOnChangedListener(const OnChangedListener &changedlistener);
-  void removeOnReceiveListener(void);
-  void removeOnChangedListener(void);
-  void removeAllListeners(void);
+	private:
 
-  void removeAllWatchedVar(void);
+		static TypeId *m_instance;
+	};
 
-  template<typename ObjType>
-  void addSharedVar(ObjType *sharedObj, std::string s) {
-    if (!isStarted) {
-      ObjMng newObj(sharedObj, sizeof(*sharedObj), TypeId::getTypeId(*sharedObj), s);
-      sharedObjMng.push_back(newObj);
-    }
-  }
+	typedef std::function<void(const std::vector<Byte>&)> OnReceiveListener;
+	typedef std::function<void(void)> OnChangedListener;
 
-  template<typename ObjType>
-  void addWatchedVar(ObjType *watchedObj, std::string s) {
-    if (!isStarted) {
-      ObjMng newObj(watchedObj, sizeof(*watchedObj), TypeId::getTypeId(*watchedObj), s);
-      watchedObjMng.push_back(newObj);
-    }
-  }
+	explicit pGrapher(void);
+	~pGrapher(void);
 
-  void sendWatchData(void);
+	void setOnReceiveListener(const OnReceiveListener &oriListener);
+	void setOnChangedListener(const OnChangedListener &changedlistener);
+	void removeOnReceiveListener(void);
+	void removeOnChangedListener(void);
+	void removeAllListeners(void);
 
-  bool isStarted;
-  const Byte rx_threshold;
+	void removeAllWatchedVar(void);
 
-  JyMcuBt106 m_uart;
+	template<typename ObjType>
+	void addSharedVar(ObjType *sharedObj, std::string s)
+	{
+		if (!isStarted)
+		{
+			ObjMng newObj(sharedObj, sizeof(*sharedObj), TypeId::getTypeId(*sharedObj), s);
+			sharedObjMng.push_back(newObj);
+		}
+	}
 
- private:
-  OnReceiveListener m_origin_listener;
-  OnChangedListener m_onChanged_listener;
+	template<typename ObjType>
+	void addWatchedVar(ObjType *watchedObj, std::string s)
+	{
+		if (!isStarted)
+		{
+			ObjMng newObj(watchedObj, sizeof(*watchedObj), TypeId::getTypeId(*watchedObj), s);
+			watchedObjMng.push_back(newObj);
+		}
+	}
 
-  std::vector<ObjMng> sharedObjMng;
-  std::vector<ObjMng> watchedObjMng;
+	void sendWatchData(void);
 
-  std::vector<Byte> rx_buffer;
+	bool							isStarted;
+	const Byte						rx_threshold;
 
-  static bool listener(const Byte *data, const size_t size);
+	JyMcuBt106						m_uart;
 
-  SysTick::Config getTimerConfig(void);
-  JyMcuBt106::Config get106UartConfig(const uint8_t id);
-  FtdiFt232r::Config get232UartConfig(const uint8_t id);
+private:
 
-  void sendWatchedVarInfo(void);
-  void sendSharedVarInfo(void);
+	OnReceiveListener				m_origin_listener;
+	OnChangedListener				m_onChanged_listener;
 
-  void changeSharedVars(const std::vector<Byte> &msg);
+	std::vector<ObjMng>				sharedObjMng;
+	std::vector<ObjMng>				watchedObjMng;
+
+	std::vector<Byte>				rx_buffer;
+
+	static bool listener(const Byte *data, const size_t size);
+
+	SysTick::Config getTimerConfig(void);
+	JyMcuBt106::Config get106UartConfig(const uint8_t id);
+	FtdiFt232r::Config get232UartConfig(const uint8_t id);
+
+	void sendWatchedVarInfo(void);
+	void sendSharedVarInfo(void);
+
+	void changeSharedVars(const std::vector<Byte> &msg);
+
 };
 
-}  // namespace libutil
+}

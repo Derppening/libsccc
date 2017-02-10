@@ -8,13 +8,15 @@
 
 #pragma once
 
-namespace libutil {
+namespace libutil
+{
 
-class Math {
- public:
-  static float ArcTan(float x);
-  static float ArcSin(float x);
-  static float Sqrt2(const float x);
+class Math
+{
+public:
+	static float ArcTan(float x);
+	static float ArcSin(float x);
+	static float Sqrt2(const float x);
 };
 
 }

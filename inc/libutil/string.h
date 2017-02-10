@@ -15,14 +15,16 @@
 #include <memory>
 #include <string>
 
-namespace libutil {
+namespace libutil
+{
 
-class String {
- public:
-  static std::string Format(const char *format, ...);
-  static std::string Format(const char *format, va_list *vl);
+class String
+{
+public:
+	static std::string Format(const char *format, ...);
+	static std::string Format(const char *format, va_list *vl);
 };
 
-}  // namespace libutil
+}
 
 #endif /* LIBUTIL_STRING_UTILS_H_ */
