@@ -4,7 +4,7 @@ project(libsccc)
 include(CMakeForceCompiler)
 
 # specify what we're currently working with
-# valid options: david_desktop, david_laptop, xanthe
+# valid options: david_desktop, david_laptop
 set(COMPILE_ENV david_laptop)
 set(SCCC_CONFIG 2017_INNO)
 
@@ -19,8 +19,8 @@ CMAKE_FORCE_C_COMPILER(${CC} GNU)
 CMAKE_FORCE_CXX_COMPILER(${CXX} GNU)
 
 # define the c++ standard and includes to resolve *.h
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 
 include_directories(inc)
 
