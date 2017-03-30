@@ -30,35 +30,29 @@ using namespace libsc::kl26;
 
 #endif
 
-namespace libutil
-{
+namespace libutil {
 
-namespace
-{
+namespace {
 
-UartDevice *g_uart = nullptr;
+UartDevice* g_uart = nullptr;
 
-int MyFwriteHandler(int, char *ptr, int len)
-{
-	if (g_uart)
-	{
-		g_uart->SendBuffer(reinterpret_cast<const Byte*>(ptr), len);
-	}
-	return len;
+int MyFwriteHandler(int, char* ptr, int len) {
+  if (g_uart) {
+    g_uart->SendBuffer(reinterpret_cast<const Byte*>(ptr), len);
+  }
+  return len;
 }
 
 }
 
-void InitDefaultFwriteHandler(UartDevice *uart)
-{
-	g_uart = uart;
-	g_fwrite_handler = MyFwriteHandler;
+void InitDefaultFwriteHandler(UartDevice* uart) {
+  g_uart = uart;
+  g_fwrite_handler = MyFwriteHandler;
 }
 
-void UninitDefaultFwriteHandler()
-{
-	g_uart = nullptr;
-	g_fwrite_handler = nullptr;
+void UninitDefaultFwriteHandler() {
+  g_uart = nullptr;
+  g_fwrite_handler = nullptr;
 }
 
 }

@@ -31,178 +31,162 @@
 
 // Default PWM A -> CW
 #ifndef LIBSC_ALTERNATE_MOTOR_CW_PWM
-	#define LIBSC_ALTERNATE_MOTOR_CW_PWM 0
+#define LIBSC_ALTERNATE_MOTOR_CW_PWM 0
 #endif
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
 #if defined(LIBSC_USE_MOTOR) && defined(LIBSC_MOTOR0_PWMA) \
-		&& defined(LIBSC_MOTOR0_PWMB)
+ && defined(LIBSC_MOTOR0_PWMB)
 
-namespace
-{
+namespace {
 
 #if LIBSC_USE_MOTOR == 1
 inline Pin::Name GetPwmAPin(const uint8_t id)
 {
-	if (id != 0)
-	{
-		assert(false);
-	}
-	return LIBSC_MOTOR0_PWMA;
+    if (id != 0)
+    {
+        assert(false);
+    }
+    return LIBSC_MOTOR0_PWMA;
 }
 
 inline Pin::Name GetPwmBPin(const uint8_t id)
 {
-	if (id != 0)
-	{
-		assert(false);
-	}
-	return LIBSC_MOTOR0_PWMB;
+    if (id != 0)
+    {
+        assert(false);
+    }
+    return LIBSC_MOTOR0_PWMB;
 }
 
 #if PINOUT_FTM_COUNT
 // Currently deadtime only supported on FTM
 inline uint32_t GetDeadtime(const uint8_t id)
 {
-	if (id != 0)
-	{
-		assert(false);
-	}
-	return LIBSC_MOTOR0_DEADTIME;
+    if (id != 0)
+    {
+        assert(false);
+    }
+    return LIBSC_MOTOR0_DEADTIME;
 }
 
 #endif // PINOUT_FTM_COUNT
 
 #else
-inline Pin::Name GetPwmAPin(const uint8_t id)
-{
-	switch (id)
-	{
-	default:
-		assert(false);
-		// no break
+inline Pin::Name GetPwmAPin(const uint8_t id) {
+  switch (id) {
+    default:
+      assert(false);
+      // no break
 
-	case 0:
-		return LIBSC_MOTOR0_PWMA;
+    case 0:
+      return LIBSC_MOTOR0_PWMA;
 
-	case 1:
-		return LIBSC_MOTOR1_PWMA;
-	}
+    case 1:
+      return LIBSC_MOTOR1_PWMA;
+  }
 }
 
-inline Pin::Name GetPwmBPin(const uint8_t id)
-{
-	switch (id)
-	{
-	default:
-		assert(false);
-		// no break
+inline Pin::Name GetPwmBPin(const uint8_t id) {
+  switch (id) {
+    default:
+      assert(false);
+      // no break
 
-	case 0:
-		return LIBSC_MOTOR0_PWMB;
+    case 0:
+      return LIBSC_MOTOR0_PWMB;
 
-	case 1:
-		return LIBSC_MOTOR1_PWMB;
-	}
+    case 1:
+      return LIBSC_MOTOR1_PWMB;
+  }
 }
 
 #if PINOUT_FTM_COUNT
 // Currently deadtime only supported on FTM
-inline uint32_t GetDeadtime(const uint8_t id)
-{
-	switch (id)
-	{
-	default:
-		assert(false);
-		// no break
+inline uint32_t GetDeadtime(const uint8_t id) {
+  switch (id) {
+    default:
+      assert(false);
+      // no break
 
-	case 0:
-		return LIBSC_MOTOR0_DEADTIME;
+    case 0:
+      return LIBSC_MOTOR0_DEADTIME;
 
-	case 1:
-		return LIBSC_MOTOR1_DEADTIME;
-	}
+    case 1:
+      return LIBSC_MOTOR1_DEADTIME;
+  }
 }
 
 #endif // PINOUT_FTM_COUNT
 
 #endif
 
-AlternateMotor::Pwm::Config GetPwmAConfig(const uint8_t id)
-{
-	AlternateMotor::Pwm::Config config;
-	config.pin = GetPwmAPin(id);
-	config.period = PERIOD;
-	config.pos_width = 0;
-	config.precision = Pwm::Config::Precision::kNs;
-	config.alignment = AlternateMotor::Pwm::Config::Alignment::kCenter;
+AlternateMotor::Pwm::Config GetPwmAConfig(const uint8_t id) {
+  AlternateMotor::Pwm::Config config;
+  config.pin = GetPwmAPin(id);
+  config.period = PERIOD;
+  config.pos_width = 0;
+  config.precision = Pwm::Config::Precision::kNs;
+  config.alignment = AlternateMotor::Pwm::Config::Alignment::kCenter;
 #if PINOUT_FTM_COUNT
-	config.is_insert_deadtime = true;
-	config.deadtime_ns = GetDeadtime(id);
+  config.is_insert_deadtime = true;
+  config.deadtime_ns = GetDeadtime(id);
 #endif
-	return config;
+  return config;
 }
 
-AlternateMotor::Pwm::Config GetPwmBConfig(const uint8_t id)
-{
-	AlternateMotor::Pwm::Config config;
-	config.pin = GetPwmBPin(id);
-	config.period = PERIOD;
-	config.pos_width = 0;
-	config.precision = Pwm::Config::Precision::kNs;
-	config.alignment = AlternateMotor::Pwm::Config::Alignment::kCenter;
+AlternateMotor::Pwm::Config GetPwmBConfig(const uint8_t id) {
+  AlternateMotor::Pwm::Config config;
+  config.pin = GetPwmBPin(id);
+  config.period = PERIOD;
+  config.pos_width = 0;
+  config.precision = Pwm::Config::Precision::kNs;
+  config.alignment = AlternateMotor::Pwm::Config::Alignment::kCenter;
 #if PINOUT_FTM_COUNT
-	config.is_insert_deadtime = true;
-	config.deadtime_ns = GetDeadtime(id);
+  config.is_insert_deadtime = true;
+  config.deadtime_ns = GetDeadtime(id);
 #endif
-	return config;
+  return config;
 }
 
 }
 
-AlternateMotor::AlternateMotor(const Config &config)
-		: Motor(config),
-		  m_pwms{AlternateMotor::Pwm(GetPwmAConfig(config.id)),
-				  AlternateMotor::Pwm(GetPwmBConfig(config.id))},
-		  m_active_pwm(&m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM]),
-		  m_pos_width(0)
-{}
+AlternateMotor::AlternateMotor(const Config& config)
+    : Motor(config),
+      m_pwms{AlternateMotor::Pwm(GetPwmAConfig(config.id)),
+             AlternateMotor::Pwm(GetPwmBConfig(config.id))},
+      m_active_pwm(&m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM]),
+      m_pos_width(0) {}
 
-void AlternateMotor::OnSetPower(const uint16_t power)
-{
-	const uint32_t pos_width = PwmUtils::GetPosWidth(PERIOD, power);
-	m_active_pwm->SetPosWidth(pos_width);
-	m_pos_width = pos_width;
+void AlternateMotor::OnSetPower(const uint16_t power) {
+  const uint32_t pos_width = PwmUtils::GetPosWidth(PERIOD, power);
+  m_active_pwm->SetPosWidth(pos_width);
+  m_pos_width = pos_width;
 }
 
-void AlternateMotor::OnSetClockwise(const bool flag)
-{
-	if (flag && m_active_pwm != &m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM])
-	{
-		m_pwms[!LIBSC_ALTERNATE_MOTOR_CW_PWM].SetPosWidth(0);
-		m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM].SetPosWidth(m_pos_width);
-		m_active_pwm = &m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM];
-	}
-	else if (!flag && m_active_pwm != &m_pwms[!LIBSC_ALTERNATE_MOTOR_CW_PWM])
-	{
-		m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM].SetPosWidth(0);
-		m_pwms[!LIBSC_ALTERNATE_MOTOR_CW_PWM].SetPosWidth(m_pos_width);
-		m_active_pwm = &m_pwms[!LIBSC_ALTERNATE_MOTOR_CW_PWM];
-	}
+void AlternateMotor::OnSetClockwise(const bool flag) {
+  if (flag && m_active_pwm != &m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM]) {
+    m_pwms[!LIBSC_ALTERNATE_MOTOR_CW_PWM].SetPosWidth(0);
+    m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM].SetPosWidth(m_pos_width);
+    m_active_pwm = &m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM];
+  } else if (!flag && m_active_pwm != &m_pwms[!LIBSC_ALTERNATE_MOTOR_CW_PWM]) {
+    m_pwms[LIBSC_ALTERNATE_MOTOR_CW_PWM].SetPosWidth(0);
+    m_pwms[!LIBSC_ALTERNATE_MOTOR_CW_PWM].SetPosWidth(m_pos_width);
+    m_active_pwm = &m_pwms[!LIBSC_ALTERNATE_MOTOR_CW_PWM];
+  }
 }
 
 #else
 AlternateMotor::AlternateMotor(const Config &config)
-		: Motor(config),
-		  m_pwms({AlternateMotor::Pwm(nullptr), AlternateMotor::Pwm(nullptr)}),
-		  m_active_pwm(nullptr),
-		  m_pos_width(0)
+        : Motor(config),
+          m_pwms({AlternateMotor::Pwm(nullptr), AlternateMotor::Pwm(nullptr)}),
+          m_active_pwm(nullptr),
+          m_pos_width(0)
 {
-	LOG_DL("Configured not to use AlternateMotor");
+    LOG_DL("Configured not to use AlternateMotor");
 }
 void AlternateMotor::OnSetPower(const uint16_t) {}
 void AlternateMotor::OnSetClockwise(const bool) {}

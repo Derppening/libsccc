@@ -14,26 +14,22 @@
 #define POS_WIDTH_MIN 1000
 #define POS_WIDTH_MAX 2000
 
-namespace libsc
-{
+namespace libsc {
 
-namespace
-{
+namespace {
 
-Servo::Config GetServoConfig(const uint8_t id)
-{
-	Servo::Config config;
-	config.id = id;
-	config.period = PERIOD;
-	config.min_pos_width = POS_WIDTH_MIN;
-	config.max_pos_width = POS_WIDTH_MAX;
-	return config;
+Servo::Config GetServoConfig(const uint8_t id) {
+  Servo::Config config;
+  config.id = id;
+  config.period = PERIOD;
+  config.min_pos_width = POS_WIDTH_MIN;
+  config.max_pos_width = POS_WIDTH_MAX;
+  return config;
 }
 
 }
 
-TowerProMg995::TowerProMg995(const Config &config)
-		: Servo(GetServoConfig(config.id))
-{}
+TowerProMg995::TowerProMg995(const Config& config)
+    : Servo(GetServoConfig(config.id)) {}
 
 }

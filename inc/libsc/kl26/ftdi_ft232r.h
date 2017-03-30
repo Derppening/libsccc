@@ -13,17 +13,14 @@
 
 #include "libsc/kl26/uart_device.h"
 
-namespace libsc
-{
-namespace kl26
-{
+namespace libsc {
+namespace kl26 {
 
-class FtdiFt232r : public UartDevice
-{
-public:
-	typedef UartDevice::Config Config;
+class FtdiFt232r : public UartDevice {
+ public:
+  typedef UartDevice::Config Config;
 
-	explicit FtdiFt232r(const Config &config);
+  explicit FtdiFt232r(const Config& config);
 };
 
 }

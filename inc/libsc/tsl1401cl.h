@@ -15,48 +15,44 @@
 #include LIBBASE_H(adc)
 #include LIBBASE_H(gpio)
 
-namespace libsc
-{
+namespace libsc {
 
 /**
  * TSL1401CL linear CCD
  */
-class Tsl1401cl
-{
-public:
-	static constexpr int kSensorW = 128;
+class Tsl1401cl {
+ public:
+  static constexpr int kSensorW = 128;
 
-	explicit Tsl1401cl(const uint8_t id);
+  explicit Tsl1401cl(const uint8_t id);
 
-	void StartSample();
-	bool SampleProcess();
-	/**
-	 * Return the latest completely captured data, where dark pixel is false,
-	 * true otherwise
-	 *
-	 * @return
-	 */
-	const std::array<uint16_t, kSensorW>& GetData() const
-	{
-		return m_front_buffer;
-	}
+  void StartSample();
+  bool SampleProcess();
+  /**
+   * Return the latest completely captured data, where dark pixel is false,
+   * true otherwise
+   *
+   * @return
+   */
+  const std::array<uint16_t, kSensorW>& GetData() const {
+    return m_front_buffer;
+  }
 
-	bool IsImageReady() const
-	{
-		return (m_index >= kSensorW);
-	}
+  bool IsImageReady() const {
+    return (m_index >= kSensorW);
+  }
 
-private:
-	inline void Delay();
+ private:
+  inline void Delay();
 
-	LIBBASE_MODULE(Adc) m_ad_pin;
-	LIBBASE_MODULE(Gpo) m_clk_pin;
-	LIBBASE_MODULE(Gpo) m_si_pin;
+  LIBBASE_MODULE(Adc) m_ad_pin;
+  LIBBASE_MODULE(Gpo) m_clk_pin;
+  LIBBASE_MODULE(Gpo) m_si_pin;
 
-	std::array<uint16_t, kSensorW> m_front_buffer;
-	std::array<uint16_t, kSensorW> m_back_buffer;
+  std::array<uint16_t, kSensorW> m_front_buffer;
+  std::array<uint16_t, kSensorW> m_back_buffer;
 
-	int m_index;
+  int m_index;
 };
 
 }

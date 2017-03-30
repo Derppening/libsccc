@@ -37,7 +37,6 @@
 
 #define LIBSC_ST7735R_BGR_PANEL 1
 
-
 #define LIBSC_LINEAR_CCD0_SI libbase::k60::Pin::Name::kPtb2
 #define LIBSC_LINEAR_CCD0_CLK libbase::k60::Pin::Name::kPtb4
 #define LIBSC_LINEAR_CCD0_AD libbase::k60::Pin::Name::kPtb7

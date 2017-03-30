@@ -52,7 +52,6 @@
 #define LIBSC_MOTOR0_PWMB libbase::k60::Pin::Name::kPtd1
 #define LIBSC_MOTOR0_DEADTIME 1000
 
-
 #define LIBSC_MOTOR1_PWMA libbase::k60::Pin::Name::kPtd2
 #define LIBSC_MOTOR1_PWMB libbase::k60::Pin::Name::kPtd3
 #define LIBSC_MOTOR1_DEADTIME 1000

@@ -12,28 +12,22 @@
 
 #include "libbase/misc_types.h"
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-class PwmUtils
-{
-public:
-	static uint32_t GetPeriodUs(const uint32_t frequency)
-	{
-		return 1000000 / frequency;
-	}
+class PwmUtils {
+ public:
+  static uint32_t GetPeriodUs(const uint32_t frequency) {
+    return 1000000 / frequency;
+  }
 
-	static uint32_t GetPeriodNs(const uint32_t frequency)
-	{
-		return 1000000000 / frequency;
-	}
+  static uint32_t GetPeriodNs(const uint32_t frequency) {
+    return 1000000000 / frequency;
+  }
 
-	static uint32_t GetPosWidth(const uint32_t period, const Uint duty_1000)
-	{
-		return period * duty_1000 / 1000;
-	}
+  static uint32_t GetPosWidth(const uint32_t period, const Uint duty_1000) {
+    return period * duty_1000 / 1000;
+  }
 };
 
 }

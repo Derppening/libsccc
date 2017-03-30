@@ -8,46 +8,38 @@
 
 #pragma once
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-class Spi
-{
-public:
-	enum struct MisoName
-	{
-		kSpi0Miso = 0,
-		kSpi1Miso,
-		kDisable
-	};
+class Spi {
+ public:
+  enum struct MisoName {
+    kSpi0Miso = 0,
+    kSpi1Miso,
+    kDisable
+  };
 
-	enum struct MosiName
-	{
-		kSpi0Mosi = 0,
-		kSpi1Mosi,
-		kDisable
-	};
+  enum struct MosiName {
+    kSpi0Mosi = 0,
+    kSpi1Mosi,
+    kDisable
+  };
 
-	enum struct SckName
-	{
-		kSpi0Sck = 0,
-		kSpi1Sck,
-		kDisable
-	};
+  enum struct SckName {
+    kSpi0Sck = 0,
+    kSpi1Sck,
+    kDisable
+  };
 
-	enum struct PcsName
-	{
-		kSpi0Pcs0 = 0,
-		kSpi1Pcs0,
-		kDisable
-	};
+  enum struct PcsName {
+    kSpi0Pcs0 = 0,
+    kSpi1Pcs0,
+    kDisable
+  };
 
-	static constexpr int GetMaxSpiPcsCount()
-	{
-		return static_cast<int>(PcsName::kSpi1Pcs0);
-	}
+  static constexpr int GetMaxSpiPcsCount() {
+    return static_cast<int>(PcsName::kSpi1Pcs0);
+  }
 };
 
 }

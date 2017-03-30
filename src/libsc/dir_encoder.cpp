@@ -17,27 +17,24 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
 #if LIBSC_USE_ENCODER
 
-Encoder::QuadDecoder::Config DirEncoder::Initializer::GetQuadDecoderConfig() const
-{
-	Encoder::QuadDecoder::Config product =
-			Encoder::Initializer::GetQuadDecoderConfig();
-	product.encoding_mode =
-			Encoder::QuadDecoder::Config::EncodingMode::kCountDirection;
-	return product;
+Encoder::QuadDecoder::Config DirEncoder::Initializer::GetQuadDecoderConfig() const {
+  Encoder::QuadDecoder::Config product =
+      Encoder::Initializer::GetQuadDecoderConfig();
+  product.encoding_mode =
+      Encoder::QuadDecoder::Config::EncodingMode::kCountDirection;
+  return product;
 }
 
-DirEncoder::DirEncoder(const Config &config)
-		: Encoder(Initializer(config))
-{}
+DirEncoder::DirEncoder(const Config& config)
+    : Encoder(Initializer(config)) {}
 
 #else /* LIBSC_USE_ENCODER */
 DirEncoder::DirEncoder(const Config&)
-		: Encoder(nullptr)
+        : Encoder(nullptr)
 {}
 
 #endif /* LIBSC_USE_ENCODER */

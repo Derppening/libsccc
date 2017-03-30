@@ -13,30 +13,26 @@
 #include "libbase/helper.h"
 #include LIBBASE_H(gpio)
 
-namespace libsc
-{
+namespace libsc {
 
-class Switch
-{
-public:
-	struct Config
-	{
-		uint8_t id;
-		// on == active
-		bool is_active_low;
-	};
+class Switch {
+ public:
+  struct Config {
+    uint8_t id;
+    // on == active
+    bool is_active_low;
+  };
 
-	explicit Switch(const Config &config);
+  explicit Switch(const Config& config);
 
-	bool IsOn() const;
-	bool IsOff() const
-	{
-		return !IsOn();
-	}
+  bool IsOn() const;
+  bool IsOff() const {
+    return !IsOn();
+  }
 
-private:
-	LIBBASE_MODULE(Gpi) m_pin;
-	bool m_is_active_low;
+ private:
+  LIBBASE_MODULE(Gpi) m_pin;
+  bool m_is_active_low;
 };
 
 }

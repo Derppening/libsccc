@@ -14,43 +14,36 @@
 #include "libbase/kl26/watchdog.h"
 #include "libbase/kl26/watchdog_c.h"
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-void Watchdog::Init()
-{
-	const Config &config = GetWatchdogConfig();
+void Watchdog::Init() {
+  const Config& config = GetWatchdogConfig();
 
-	InitCopcReg(config);
+  InitCopcReg(config);
 }
 
-void Watchdog::InitCopcReg(const Config &config)
-{
-	uint32_t reg = 0;
-	reg |= SIM_COPC_COPT(static_cast<int>(config.timeout));
+void Watchdog::InitCopcReg(const Config& config) {
+  uint32_t reg = 0;
+  reg |= SIM_COPC_COPT(static_cast<int>(config.timeout));
 
-	SIM->COPC = reg;
+  SIM->COPC = reg;
 }
 
-void Watchdog::Refresh()
-{
-	__disable_irq();
-	SIM->SRVCOP = SIM_SRVCOP_SRVCOP(0x55);
-	SIM->SRVCOP = SIM_SRVCOP_SRVCOP(0xAA);
-	__enable_irq();
+void Watchdog::Refresh() {
+  __disable_irq();
+  SIM->SRVCOP = SIM_SRVCOP_SRVCOP(0x55);
+  SIM->SRVCOP = SIM_SRVCOP_SRVCOP(0xAA);
+  __enable_irq();
 }
 
-Watchdog::Config Watchdog::GetWatchdogConfig()
-{
-	return {};
+Watchdog::Config Watchdog::GetWatchdogConfig() {
+  return {};
 }
 
 }
 }
 
-void LibbaseKl26WatchdogInit()
-{
-	libbase::kl26::Watchdog::Init();
+void LibbaseKl26WatchdogInit() {
+  libbase::kl26::Watchdog::Init();
 }

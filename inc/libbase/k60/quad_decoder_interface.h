@@ -13,29 +13,24 @@
 
 #include "libbase/k60/pin.h"
 
-namespace libbase
-{
-namespace k60
-{
+namespace libbase {
+namespace k60 {
 
-class QuadDecoderInterface
-{
-public:
-	struct Config
-	{
-		Pin::Name a_pin;
-		Pin::Name b_pin;
-		bool is_invert_a_polarity = false;
-		bool is_invert_b_polarity = false;
-	};
+class QuadDecoderInterface {
+ public:
+  struct Config {
+    Pin::Name a_pin;
+    Pin::Name b_pin;
+    bool is_invert_a_polarity = false;
+    bool is_invert_b_polarity = false;
+  };
 
-	virtual ~QuadDecoderInterface()
-	{}
+  virtual ~QuadDecoderInterface() {}
 
-	virtual operator bool() const = 0;
+  virtual operator bool() const = 0;
 
-	virtual int32_t GetCount() = 0;
-	virtual void ResetCount() = 0;
+  virtual int32_t GetCount() = 0;
+  virtual void ResetCount() = 0;
 };
 
 }

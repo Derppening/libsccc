@@ -10,23 +10,18 @@
 
 #include "libbase/k60/misc_utils.h"
 
-namespace libbase
-{
-namespace k60
-{
+namespace libbase {
+namespace k60 {
 
-class DmaMuxUtils
-{
-public:
-	static Uint GetModule(const Uint ch)
-	{
-		return static_cast<Uint>(ch) >> 4;
-	}
+class DmaMuxUtils {
+ public:
+  static Uint GetModule(const Uint ch) {
+    return static_cast<Uint>(ch) >> 4;
+  }
 
-	static Uint GetChannel(const Uint ch)
-	{
-		return static_cast<Uint>(ch) & 0xF;
-	}
+  static Uint GetChannel(const Uint ch) {
+    return static_cast<Uint>(ch) & 0xF;
+  }
 };
 
 }

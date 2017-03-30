@@ -16,38 +16,31 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
-namespace
-{
+namespace {
 
-SysTick::Config GetSysTickConfig()
-{
-	SysTick::Config sc;
-	sc.is_enable = false;
-	return sc;
+SysTick::Config GetSysTickConfig() {
+  SysTick::Config sc;
+  sc.is_enable = false;
+  return sc;
 }
 
 }
 
 SysTickDelay::SysTickDelay()
-		: m_sys_tick(GetSysTickConfig())
-{}
+    : m_sys_tick(GetSysTickConfig()) {}
 
-inline void SysTickDelay::DelayCount(const uint32_t count)
-{
-	m_sys_tick.SetCount(count);
-	m_sys_tick.SetEnable(true);
-	m_sys_tick.ConsumeInterrupt();
-	while (!m_sys_tick.IsInterruptRequested())
-	{}
-	m_sys_tick.SetEnable(false);
+inline void SysTickDelay::DelayCount(const uint32_t count) {
+  m_sys_tick.SetCount(count);
+  m_sys_tick.SetEnable(true);
+  m_sys_tick.ConsumeInterrupt();
+  while (!m_sys_tick.IsInterruptRequested()) {}
+  m_sys_tick.SetEnable(false);
 }
 
-void SysTickDelay::DelayUs(const uint16_t us)
-{
-	DelayCount(ClockUtils::GetCoreTickPerUs(us));
+void SysTickDelay::DelayUs(const uint16_t us) {
+  DelayCount(ClockUtils::GetCoreTickPerUs(us));
 }
 
 }

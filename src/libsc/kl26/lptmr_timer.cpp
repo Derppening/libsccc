@@ -17,44 +17,36 @@
 
 using namespace libbase::kl26;
 
-namespace libsc
-{
-namespace kl26
-{
+namespace libsc {
+namespace kl26 {
 
-namespace
-{
+namespace {
 
-Lptmr::Config GetLptmrConfig(const Lptmr::OnLptmrTriggerListener &isr)
-{
-	Lptmr::Config product;
-	product.count = UINT16_MAX;
-	product.isr = isr;
-	return product;
+Lptmr::Config GetLptmrConfig(const Lptmr::OnLptmrTriggerListener& isr) {
+  Lptmr::Config product;
+  product.count = UINT16_MAX;
+  product.isr = isr;
+  return product;
 }
 
 }
 
 LptmrTimer::LptmrTimer()
-		: m_lptmr(GetLptmrConfig(std::bind(&LptmrTimer::OnTick, this,
-				std::placeholders::_1))),
-		  m_ms(0)
-{}
+    : m_lptmr(GetLptmrConfig(std::bind(&LptmrTimer::OnTick, this,
+                                       std::placeholders::_1))),
+      m_ms(0) {}
 
-Timer::TimerInt LptmrTimer::Time()
-{
-	const uint16_t curr_counter = m_lptmr.GetCounter();
-	if (curr_counter != m_prev_counter)
-	{
-		m_ms += (uint16_t)(curr_counter - m_prev_counter);
-		m_prev_counter = curr_counter;
-	}
-	return m_ms;
+Timer::TimerInt LptmrTimer::Time() {
+  const uint16_t curr_counter = m_lptmr.GetCounter();
+  if (curr_counter != m_prev_counter) {
+    m_ms += (uint16_t) (curr_counter - m_prev_counter);
+    m_prev_counter = curr_counter;
+  }
+  return m_ms;
 }
 
-void LptmrTimer::OnTick(Lptmr*)
-{
-	Time();
+void LptmrTimer::OnTick(Lptmr*) {
+  Time();
 }
 
 }

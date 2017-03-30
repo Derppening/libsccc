@@ -39,18 +39,15 @@
 #define LIBSC_ST7735R_SDAT libbase::k60::Pin::Name::kPte1
 #define LIBSC_ST7735R_SCLK libbase::k60::Pin::Name::kPte2
 
-
 #define LIBSC_LDC1000_2_DC libbase::k60::Pin::Name::kPte3
 #define LIBSC_LDC1000_2_CS libbase::k60::Pin::Name::kPte4
 #define LIBSC_LDC1000_2_SDAT libbase::k60::Pin::Name::kPte1
 #define LIBSC_LDC1000_2_SCLK libbase::k60::Pin::Name::kPte2
 
-
 #define LIBSC_LDC1000_1_DC libbase::k60::Pin::Name::kPtb23
 #define LIBSC_LDC1000_1_CS libbase::k60::Pin::Name::kPtb20
 #define LIBSC_LDC1000_1_SDAT libbase::k60::Pin::Name::kPtb22
 #define LIBSC_LDC1000_1_SCLK libbase::k60::Pin::Name::kPtb21
-
 
 #define LIBSC_LDC1000_0_DC libbase::k60::Pin::Name::kPta17
 #define LIBSC_LDC1000_0_CS libbase::k60::Pin::Name::kPta14

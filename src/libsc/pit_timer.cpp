@@ -18,33 +18,28 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
-namespace
-{
+namespace {
 
 Pit::Config GetPitConfig(const uint8_t pit_channel,
-		const Pit::OnPitTriggerListener &isr)
-{
-	Pit::Config config;
-	config.channel = pit_channel;
-	config.count = ClockUtils::GetBusTickPerMs();
-	config.isr = isr;
-	return config;
+                         const Pit::OnPitTriggerListener& isr) {
+  Pit::Config config;
+  config.channel = pit_channel;
+  config.count = ClockUtils::GetBusTickPerMs();
+  config.isr = isr;
+  return config;
 }
 
 }
 
 PitTimer::PitTimer(const uint8_t pit_channel)
-		: m_pit(GetPitConfig(pit_channel, std::bind(&PitTimer::OnTick, this,
-				std::placeholders::_1))),
-		  m_ms(0)
-{}
+    : m_pit(GetPitConfig(pit_channel, std::bind(&PitTimer::OnTick, this,
+                                                std::placeholders::_1))),
+      m_ms(0) {}
 
-void PitTimer::OnTick(Pit*)
-{
-	++m_ms;
+void PitTimer::OnTick(Pit*) {
+  ++m_ms;
 }
 
 }

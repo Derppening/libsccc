@@ -12,25 +12,20 @@
 #include "libbase/k60/pin.h"
 #include "libbase/k60/spi.h"
 
-namespace libbase
-{
-namespace k60
-{
+namespace libbase {
+namespace k60 {
 
-class SpiUtils
-{
-public:
-	static Uint GetCsNumber(const Pin::Name pin);
+class SpiUtils {
+ public:
+  static Uint GetCsNumber(const Pin::Name pin);
 
-	static Uint GetSpiModule(const Spi::PcsName pcs)
-	{
-		return static_cast<Uint>(pcs) / Spi::GetMaxSpiPcsCount();
-	}
+  static Uint GetSpiModule(const Spi::PcsName pcs) {
+    return static_cast<Uint>(pcs) / Spi::GetMaxSpiPcsCount();
+  }
 
-	static Uint GetSpiPcs(const Spi::PcsName pcs)
-	{
-		return static_cast<Uint>(pcs) % Spi::GetMaxSpiPcsCount();
-	}
+  static Uint GetSpiPcs(const Spi::PcsName pcs) {
+    return static_cast<Uint>(pcs) % Spi::GetMaxSpiPcsCount();
+  }
 };
 
 }

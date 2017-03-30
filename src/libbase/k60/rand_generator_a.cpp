@@ -27,78 +27,78 @@ namespace k60
 {
 
 RandGenerator::RandGenerator(const Config &config)
-		: m_is_init(true)
+        : m_is_init(true)
 {
-	Sim::SetEnableClockGate(Sim::ClockGate::kRnga, true);
-	RNG->CR = 0 | RNG_CR_INTM_MASK | RNG_CR_HA_MASK;
-	if (config.is_ext_entropy)
-	{
-		SetEntropy(config.entropy);
-	}
-	SET_BIT(RNG->CR, RNG_CR_GO_SHIFT);
+    Sim::SetEnableClockGate(Sim::ClockGate::kRnga, true);
+    RNG->CR = 0 | RNG_CR_INTM_MASK | RNG_CR_HA_MASK;
+    if (config.is_ext_entropy)
+    {
+        SetEntropy(config.entropy);
+    }
+    SET_BIT(RNG->CR, RNG_CR_GO_SHIFT);
 }
 
 RandGenerator::RandGenerator(RandGenerator &&rhs)
-		: RandGenerator(nullptr)
+        : RandGenerator(nullptr)
 {
-	*this = std::move(rhs);
+    *this = std::move(rhs);
 }
 
 RandGenerator::RandGenerator(nullptr_t)
-		: m_is_init(false)
+        : m_is_init(false)
 {}
 
 RandGenerator::~RandGenerator()
 {
-	Uninit();
+    Uninit();
 }
 
 RandGenerator& RandGenerator::operator=(RandGenerator &&rhs)
 {
-	if (this != &rhs)
-	{
-		Uninit();
-		if (rhs)
-		{
-			rhs.m_is_init = false;
+    if (this != &rhs)
+    {
+        Uninit();
+        if (rhs)
+        {
+            rhs.m_is_init = false;
 
-			m_is_init = true;
-		}
-	}
-	return *this;
+            m_is_init = true;
+        }
+    }
+    return *this;
 }
 
 void RandGenerator::Uninit()
 {
-	if (m_is_init)
-	{
-		m_is_init = false;
+    if (m_is_init)
+    {
+        m_is_init = false;
 
-		Sim::SetEnableClockGate(Sim::ClockGate::kRnga, false);
-	}
+        Sim::SetEnableClockGate(Sim::ClockGate::kRnga, false);
+    }
 }
 
 void RandGenerator::SetEntropy(const uint32_t entropy)
 {
-	STATE_GUARD(RandGenerator, VOID);
+    STATE_GUARD(RandGenerator, VOID);
 
-	RNG->ER = entropy;
+    RNG->ER = entropy;
 }
 
 bool RandGenerator::IsReady() const
 {
-	STATE_GUARD(RandGenerator, false);
+    STATE_GUARD(RandGenerator, false);
 
-	return ((RNG->SR & RNG_SR_OREG_LVL_MASK) > 0);
+    return ((RNG->SR & RNG_SR_OREG_LVL_MASK) > 0);
 }
 
 uint32_t RandGenerator::GetRand() const
 {
-	STATE_GUARD(RandGenerator, 0);
+    STATE_GUARD(RandGenerator, 0);
 
-	while (!IsReady())
-	{}
-	return RNG->OR;
+    while (!IsReady())
+    {}
+    return RNG->OR;
 }
 
 }

@@ -17,47 +17,39 @@
 using namespace libbase::kl26;
 using namespace libsc::kl26;
 
-namespace libsc
-{
+namespace libsc {
 
-System::Impl *System::m_instance = nullptr;
+System::Impl* System::m_instance = nullptr;
 
-struct System::Impl
-{
-	SysTickDelay delay;
-	LptmrTimer timer;
+struct System::Impl {
+  SysTickDelay delay;
+  LptmrTimer timer;
 };
 
-void System::Init()
-{
-	if (!m_instance)
-	{
-		m_instance = new Impl;
-	}
+void System::Init() {
+  if (!m_instance) {
+    m_instance = new Impl;
+  }
 }
 
-void System::DelayUs(const uint16_t us)
-{
-	assert(m_instance);
-	m_instance->delay.DelayUs(us);
+void System::DelayUs(const uint16_t us) {
+  assert(m_instance);
+  m_instance->delay.DelayUs(us);
 }
 
-void System::DelayMs(const uint16_t ms)
-{
-	assert(m_instance);
-	m_instance->delay.DelayMs(ms);
+void System::DelayMs(const uint16_t ms) {
+  assert(m_instance);
+  m_instance->delay.DelayMs(ms);
 }
 
-void System::DelayS(const uint16_t s)
-{
-	assert(m_instance);
-	m_instance->delay.DelayS(s);
+void System::DelayS(const uint16_t s) {
+  assert(m_instance);
+  m_instance->delay.DelayS(s);
 }
 
-Timer::TimerInt System::Time()
-{
-	assert(m_instance);
-	return m_instance->timer.Time();
+Timer::TimerInt System::Time() {
+  assert(m_instance);
+  return m_instance->timer.Time();
 }
 
 }

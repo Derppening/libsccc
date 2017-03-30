@@ -21,8 +21,7 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
 #ifdef LIBSC_USE_INFRA_RED_SENSOR
 
@@ -32,93 +31,92 @@ namespace
 #if LIBSC_USE_INFRA_RED_SENSOR == 1
 inline Pin::Name GetPin(const uint8_t id)
 {
-	if (id != 0)
-	{
-		assert(false);
-	}
-	return LIBSC_INFRA_RED0;
+    if (id != 0)
+    {
+        assert(false);
+    }
+    return LIBSC_INFRA_RED0;
 }
 
 #else
 inline Pin::Name GetPin(const uint8_t id)
 {
-	switch (id)
-	{
-	default:
-		assert(false);
-		// no break
+    switch (id)
+    {
+    default:
+        assert(false);
+        // no break
 
-	case 0:
-		return LIBSC_INFRA_RED0;
+    case 0:
+        return LIBSC_INFRA_RED0;
 
-	case 1:
-		return LIBSC_INFRA_RED1;
-	}
+    case 1:
+        return LIBSC_INFRA_RED1;
+    }
 }
 
 #endif
 
 Gpi::Config GetGpiConfig(const InfraRedSensor::Config &config,
-		const Gpi::OnGpiEventListener &listener)
+        const Gpi::OnGpiEventListener &listener)
 {
-	Gpi::Config product;
-	product.pin = GetPin(config.id);
-	product.config.set(Pin::Config::ConfigBit::kPassiveFilter);
-	if (listener)
-	{
-		switch (config.listener_trigger)
-		{
-		default:
-		case InfraRedSensor::Config::Trigger::kEnter:
-			product.interrupt = (config.is_active_low
-					? Pin::Config::Interrupt::kFalling
-					: Pin::Config::Interrupt::kRising);
-			break;
+    Gpi::Config product;
+    product.pin = GetPin(config.id);
+    product.config.set(Pin::Config::ConfigBit::kPassiveFilter);
+    if (listener)
+    {
+        switch (config.listener_trigger)
+        {
+        default:
+        case InfraRedSensor::Config::Trigger::kEnter:
+            product.interrupt = (config.is_active_low
+                    ? Pin::Config::Interrupt::kFalling
+                    : Pin::Config::Interrupt::kRising);
+            break;
 
-		case InfraRedSensor::Config::Trigger::kLeave:
-			product.interrupt = (config.is_active_low
-					? Pin::Config::Interrupt::kRising
-					: Pin::Config::Interrupt::kFalling);
-			break;
+        case InfraRedSensor::Config::Trigger::kLeave:
+            product.interrupt = (config.is_active_low
+                    ? Pin::Config::Interrupt::kRising
+                    : Pin::Config::Interrupt::kFalling);
+            break;
 
-		case InfraRedSensor::Config::Trigger::kBoth:
-			product.interrupt = Pin::Config::Interrupt::kBoth;
-			break;
-		}
-		product.isr = listener;
-	}
-	return product;
+        case InfraRedSensor::Config::Trigger::kBoth:
+            product.interrupt = Pin::Config::Interrupt::kBoth;
+            break;
+        }
+        product.isr = listener;
+    }
+    return product;
 }
 
 }
 
 InfraRedSensor::InfraRedSensor(const Config &config)
-		: m_pin(nullptr),
-		  m_is_active_low(config.is_active_low)
+        : m_pin(nullptr),
+          m_is_active_low(config.is_active_low)
 {
-	Gpi::OnGpiEventListener listener;
-	if (config.listener)
-	{
-		const uint8_t id = config.id;
-		InfraRedSensor::Listener ir_listener = config.listener;
-		listener = [ir_listener, id](Gpi*)
-				{
-					ir_listener(id);
-				};
-	}
-	m_pin = Gpi(GetGpiConfig(config, listener));
+    Gpi::OnGpiEventListener listener;
+    if (config.listener)
+    {
+        const uint8_t id = config.id;
+        InfraRedSensor::Listener ir_listener = config.listener;
+        listener = [ir_listener, id](Gpi*)
+                {
+                    ir_listener(id);
+                };
+    }
+    m_pin = Gpi(GetGpiConfig(config, listener));
 }
 
 bool InfraRedSensor::IsDetected() const
 {
-	return (m_pin.Get() ^ m_is_active_low);
+    return (m_pin.Get() ^ m_is_active_low);
 }
 
 #else
 InfraRedSensor::InfraRedSensor(const Config&)
-		: m_pin(nullptr)
-{
-	LOG_DL("Configured not to use InfraRedSensor");
+    : m_pin(nullptr) {
+  LOG_DL("Configured not to use InfraRedSensor");
 }
 bool InfraRedSensor::IsDetected() const { return false; }
 

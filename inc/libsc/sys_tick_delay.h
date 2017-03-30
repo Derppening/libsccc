@@ -15,20 +15,18 @@
 
 #include "libsc/delay.h"
 
-namespace libsc
-{
+namespace libsc {
 
-class SysTickDelay : public Delay
-{
-public:
-	SysTickDelay();
+class SysTickDelay : public Delay {
+ public:
+  SysTickDelay();
 
-	void DelayUs(const uint16_t us) override;
+  void DelayUs(const uint16_t us) override;
 
-private:
-	inline void DelayCount(const uint32_t count);
+ private:
+  inline void DelayCount(const uint32_t count);
 
-	LIBBASE_MODULE(SysTick) m_sys_tick;
+  LIBBASE_MODULE(SysTick) m_sys_tick;
 };
 
 }

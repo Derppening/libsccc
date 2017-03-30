@@ -11,19 +11,16 @@
 #include "libsc/config.h"
 #include "libsc/kl26/ftdi_ft232r.h"
 
-namespace libsc
-{
-namespace kl26
-{
+namespace libsc {
+namespace kl26 {
 
 #ifdef LIBSC_USE_UART
-FtdiFt232r::FtdiFt232r(const Config &config)
-		: UartDevice(Initializer(config))
-{}
+FtdiFt232r::FtdiFt232r(const Config& config)
+    : UartDevice(Initializer(config)) {}
 
 #else /* LIBSC_USE_UART */
 FtdiFt232r::FtdiFt232r(const Config&)
-		: UartDevice(nullptr)
+        : UartDevice(nullptr)
 {}
 
 #endif /* LIBSC_USE_UART */

@@ -12,18 +12,14 @@
 #include "libbase/kl26/misc_utils.h"
 #include "libbase/kl26/pinout.h"
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-class I2cUtils
-{
-public:
-	static Uint GetI2cModule(const I2c::Name pin)
-	{
-		return static_cast<Uint>(pin) / PINOUT::GetI2cCount();
-	}
+class I2cUtils {
+ public:
+  static Uint GetI2cModule(const I2c::Name pin) {
+    return static_cast<Uint>(pin) / PINOUT::GetI2cCount();
+  }
 };
 
 }

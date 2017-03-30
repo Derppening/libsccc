@@ -32,64 +32,58 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
 #if LIBSC_USE_ENCODER
 
-namespace
-{
+namespace {
 
 #if LIBSC_USE_ENCODER == 1
 inline Pin::Name GetQda(const uint8_t id)
 {
-	if (id != 0)
-	{
-		assert(false);
-	}
-	return LIBSC_ENCODER0_QDA;
+    if (id != 0)
+    {
+        assert(false);
+    }
+    return LIBSC_ENCODER0_QDA;
 }
 
 inline Pin::Name GetQdb(const uint8_t id)
 {
-	if (id != 0)
-	{
-		assert(false);
-	}
-	return LIBSC_ENCODER0_QDB;
+    if (id != 0)
+    {
+        assert(false);
+    }
+    return LIBSC_ENCODER0_QDB;
 }
 
 #else
-inline Pin::Name GetQda(const uint8_t id)
-{
-	switch (id)
-	{
-	default:
-		assert(false);
-		// no break
+inline Pin::Name GetQda(const uint8_t id) {
+  switch (id) {
+    default:
+      assert(false);
+      // no break
 
-	case 0:
-		return LIBSC_ENCODER0_QDA;
+    case 0:
+      return LIBSC_ENCODER0_QDA;
 
-	case 1:
-		return LIBSC_ENCODER1_QDA;
-	}
+    case 1:
+      return LIBSC_ENCODER1_QDA;
+  }
 }
 
-inline Pin::Name GetQdb(const uint8_t id)
-{
-	switch (id)
-	{
-	default:
-		assert(false);
-		// no break
+inline Pin::Name GetQdb(const uint8_t id) {
+  switch (id) {
+    default:
+      assert(false);
+      // no break
 
-	case 0:
-		return LIBSC_ENCODER0_QDB;
+    case 0:
+      return LIBSC_ENCODER0_QDB;
 
-	case 1:
-		return LIBSC_ENCODER1_QDB;
-	}
+    case 1:
+      return LIBSC_ENCODER1_QDB;
+  }
 }
 
 #endif // LIBSC_USE_ENCODER
@@ -98,80 +92,74 @@ inline Pin::Name GetQdb(const uint8_t id)
 #if LIBSC_USE_ENCODER == 1
 inline uint8_t GetEncoderTpmModule(const uint8_t)
 {
-	return LIBSC_ENCODER0_TPM_MODULE;
+    return LIBSC_ENCODER0_TPM_MODULE;
 }
 
 #else
 inline uint8_t GetEncoderTpmModule(const uint8_t id)
 {
-	switch (id)
-	{
-	default:
-		assert(false);
-		// no break
+    switch (id)
+    {
+    default:
+        assert(false);
+        // no break
 
-	case 0:
-		return LIBSC_ENCODER0_TPM_MODULE;
+    case 0:
+        return LIBSC_ENCODER0_TPM_MODULE;
 
-	case 1:
-		return LIBSC_ENCODER1_TPM_MODULE;
-	}
+    case 1:
+        return LIBSC_ENCODER1_TPM_MODULE;
+    }
 }
 
 #endif // LIBSC_USE_ENCODER
 #endif // PINOUT_TPM_COUNT
 
-inline Encoder::QuadDecoder::Config GetQuadDecoderConfig_(const uint8_t id)
-{
-	Encoder::QuadDecoder::Config config;
-	config.a_pin = GetQda(id);
-	config.b_pin = GetQdb(id);
+inline Encoder::QuadDecoder::Config GetQuadDecoderConfig_(const uint8_t id) {
+  Encoder::QuadDecoder::Config config;
+  config.a_pin = GetQda(id);
+  config.b_pin = GetQdb(id);
 #if PINOUT_FTM_COUNT
-	config.a_filter_length = 1;
-	config.b_filter_length = 1;
+  config.a_filter_length = 1;
+  config.b_filter_length = 1;
 #elif PINOUT_TPM_COUNT
-	config.tpm_module = GetEncoderTpmModule(id);
+  config.tpm_module = GetEncoderTpmModule(id);
 #endif
-	return config;
+  return config;
 }
 
 }
 
-Encoder::QuadDecoder::Config Encoder::Initializer::GetQuadDecoderConfig() const
-{
-	return GetQuadDecoderConfig_(config.id);
+Encoder::QuadDecoder::Config Encoder::Initializer::GetQuadDecoderConfig() const {
+  return GetQuadDecoderConfig_(config.id);
 }
 
-Encoder::Encoder(const Initializer &initializer)
-		: m_count(0),
-		  m_quad_decoder(initializer.GetQuadDecoderConfig())
-{}
+Encoder::Encoder(const Initializer& initializer)
+    : m_count(0),
+      m_quad_decoder(initializer.GetQuadDecoderConfig()) {}
 
-Encoder::Encoder(Encoder &&rhs)
-		: m_count(rhs.m_count),
-		  m_quad_decoder(std::move(rhs.m_quad_decoder))
-{}
+Encoder::Encoder(Encoder&& rhs)
+    : m_count(rhs.m_count),
+      m_quad_decoder(std::move(rhs.m_quad_decoder)) {}
 
-Encoder::~Encoder()
-{}
+Encoder::~Encoder() {}
 
-void Encoder::Update()
-{
-	m_count = m_quad_decoder.GetCount();
-	m_quad_decoder.ResetCount();
+void Encoder::Update() {
+  m_count = m_quad_decoder.GetCount();
+  m_quad_decoder.ResetCount();
 }
 
 #else
 Encoder::Encoder(const Initializer&)
-		: Encoder(nullptr)
+        : Encoder(nullptr)
 {}
 Encoder::Encoder(Encoder&&)
-		: Encoder(nullptr)
+        : Encoder(nullptr)
 {}
 Encoder::Encoder(nullptr_t)
-		: m_count(0), m_quad_decoder(nullptr)
+        : m_count(0), m_quad_decoder(nullptr)
 {
-	LOG_DL("Configured not to use Encoder");
+    LOG_DL("Configured not to use Encoder");
 }
 Encoder::~Encoder() {}
 void Encoder::Update() {}

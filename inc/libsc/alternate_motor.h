@@ -23,34 +23,31 @@
 
 #include "libsc/motor.h"
 
-namespace libsc
-{
+namespace libsc {
 
-class AlternateMotor : public Motor
-{
-public:
+class AlternateMotor : public Motor {
+ public:
 #if PINOUT_FTM_COUNT
-	typedef LIBBASE_MODULE(FtmPwm) Pwm;
+  typedef LIBBASE_MODULE(FtmPwm) Pwm;
 
 #elif PINOUT_TPM_COUNT
-	typedef LIBBASE_MODULE(TpmPwm) Pwm;
+  typedef LIBBASE_MODULE(TpmPwm) Pwm;
 
 #endif // PINOUT_FTM_COUNT
 
-	struct Config : public Motor::Config
-	{
-		uint8_t id;
-	};
+  struct Config : public Motor::Config {
+    uint8_t id;
+  };
 
-	explicit AlternateMotor(const Config &config);
+  explicit AlternateMotor(const Config& config);
 
-private:
-	void OnSetPower(const uint16_t power) override;
-	void OnSetClockwise(const bool flag) override;
+ private:
+  void OnSetPower(const uint16_t power) override;
+  void OnSetClockwise(const bool flag) override;
 
-	Pwm m_pwms[2];
-	Pwm *m_active_pwm;
-	uint32_t m_pos_width;
+  Pwm m_pwms[2];
+  Pwm* m_active_pwm;
+  uint32_t m_pos_width;
 };
 
 }

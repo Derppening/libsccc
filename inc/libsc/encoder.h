@@ -29,66 +29,60 @@
 
 #include "libsc/config.h"
 
-namespace libsc
-{
+namespace libsc {
 
-class Encoder
-{
-public:
+class Encoder {
+ public:
 #if LIBSC_USE_SOFT_ENCODER
-	typedef LIBBASE_MODULE(SoftQuadDecoder) QuadDecoder;
+  typedef LIBBASE_MODULE(SoftQuadDecoder) QuadDecoder;
 
 #elif PINOUT_FTM_COUNT
-	typedef LIBBASE_MODULE(FtmQuadDecoder) QuadDecoder;
+  typedef LIBBASE_MODULE(FtmQuadDecoder) QuadDecoder;
 
 #elif PINOUT_TPM_COUNT
-	typedef LIBBASE_MODULE(TpmQuadDecoder) QuadDecoder;
+  typedef LIBBASE_MODULE(TpmQuadDecoder) QuadDecoder;
 
 #endif // LIBSC_USE_SOFT_ENCODER
 
-	struct Config
-	{
-		uint8_t id;
-	};
+  struct Config {
+    uint8_t id;
+  };
 
-	virtual ~Encoder();
+  virtual ~Encoder();
 
-	void Update();
+  void Update();
 
-	/**
-	 * Return the decoded count
-	 *
-	 * @return
-	 */
-	int32_t GetCount() const
-	{
-		return m_count;
-	}
+  /**
+   * Return the decoded count
+   *
+   * @return
+   */
+  int32_t GetCount() const {
+    return m_count;
+  }
 
-protected:
-	/**
-	 * Use to initialize the encoder in possibly a polymorphic way, notice that
-	 * Initializer::config is stored as a reference only
-	 */
-	struct Initializer
-	{
-		explicit Initializer(const Config &config)
-				: config(config)
-		{}
+ protected:
+  /**
+   * Use to initialize the encoder in possibly a polymorphic way, notice that
+   * Initializer::config is stored as a reference only
+   */
+  struct Initializer {
+    explicit Initializer(const Config& config)
+        : config(config) {}
 
-		virtual QuadDecoder::Config GetQuadDecoderConfig() const;
+    virtual QuadDecoder::Config GetQuadDecoderConfig() const;
 
-		const Config &config;
-	};
+    const Config& config;
+  };
 
-	explicit Encoder(const Initializer &initializer);
-	explicit Encoder(nullptr_t);
-	Encoder(Encoder &&rhs);
+  explicit Encoder(const Initializer& initializer);
+  explicit Encoder(nullptr_t);
+  Encoder(Encoder&& rhs);
 
-private:
-	int32_t m_count;
+ private:
+  int32_t m_count;
 
-	QuadDecoder m_quad_decoder;
+  QuadDecoder m_quad_decoder;
 };
 
 }

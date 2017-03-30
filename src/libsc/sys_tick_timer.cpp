@@ -18,31 +18,26 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
-namespace
-{
+namespace {
 
-SysTick::Config GetSysTickConfig(const SysTick::OnSysTickTriggerListener &isr)
-{
-	SysTick::Config config;
-	config.count = ClockUtils::GetCoreTickPerMs();
-	config.isr = isr;
-	return config;
+SysTick::Config GetSysTickConfig(const SysTick::OnSysTickTriggerListener& isr) {
+  SysTick::Config config;
+  config.count = ClockUtils::GetCoreTickPerMs();
+  config.isr = isr;
+  return config;
 }
 
 }
 
 SysTickTimer::SysTickTimer()
-		: m_pit(GetSysTickConfig(std::bind(&SysTickTimer::OnTick, this,
-				std::placeholders::_1))),
-		  m_ms(0)
-{}
+    : m_pit(GetSysTickConfig(std::bind(&SysTickTimer::OnTick, this,
+                                       std::placeholders::_1))),
+      m_ms(0) {}
 
-void SysTickTimer::OnTick(SysTick*)
-{
-	++m_ms;
+void SysTickTimer::OnTick(SysTick*) {
+  ++m_ms;
 }
 
 }

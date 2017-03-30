@@ -15,21 +15,19 @@
 
 #include "libsc/delay.h"
 
-namespace libsc
-{
+namespace libsc {
 
-class PitDelay : public Delay
-{
-public:
-	explicit PitDelay(const uint8_t channel);
+class PitDelay : public Delay {
+ public:
+  explicit PitDelay(const uint8_t channel);
 
-	void DelayUs(const uint16_t us) override;
-	void DelayMs(const uint16_t ms) override;
+  void DelayUs(const uint16_t us) override;
+  void DelayMs(const uint16_t ms) override;
 
-private:
-	inline void DelayCount(const uint32_t count);
+ private:
+  inline void DelayCount(const uint32_t count);
 
-	LIBBASE_MODULE(Pit) m_pit;
+  LIBBASE_MODULE(Pit) m_pit;
 };
 
 }

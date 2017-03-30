@@ -13,36 +13,32 @@
 #include "libbase/helper.h"
 #include LIBBASE_H(gpio)
 
-namespace libsc
-{
+namespace libsc {
 
 /**
  * DS18B20 digital thermometer
  */
-class Ds18b20
-{
-public:
-	struct Config
-	{
-		uint8_t id;
-	};
+class Ds18b20 {
+ public:
+  struct Config {
+    uint8_t id;
+  };
 
-	explicit Ds18b20(const Config &config);
+  explicit Ds18b20(const Config& config);
 
-	void UpdateTemperature();
+  void UpdateTemperature();
 
-	float GetTemperature() const
-	{
-		return m_temperature;
-	}
+  float GetTemperature() const {
+    return m_temperature;
+  }
 
-private:
-	bool Init();
-	void SendByte(const uint8_t byte);
-	uint8_t ReceiveByte();
+ private:
+  bool Init();
+  void SendByte(const uint8_t byte);
+  uint8_t ReceiveByte();
 
-	LIBBASE_MODULE(Gpio) m_pin;
-	float m_temperature;
+  LIBBASE_MODULE(Gpio) m_pin;
+  float m_temperature;
 };
 
 }

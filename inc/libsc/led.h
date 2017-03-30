@@ -13,8 +13,7 @@
 #include "libbase/helper.h"
 #include LIBBASE_H(gpio)
 
-namespace libsc
-{
+namespace libsc {
 
 /**
  * LED
@@ -23,29 +22,26 @@ namespace libsc
  * @snippet test/src/k60/led_test.cpp conf
  * @snippet test/src/k60/led_test.cpp code
  */
-class Led
-{
-public:
-	struct Config
-	{
-		uint8_t id;
-		bool is_active_low;
-	};
+class Led {
+ public:
+  struct Config {
+    uint8_t id;
+    bool is_active_low;
+  };
 
-	explicit Led(const Config &config);
+  explicit Led(const Config& config);
 
-	void SetEnable(const bool flag);
-	void Switch();
+  void SetEnable(const bool flag);
+  void Switch();
 
-protected:
-	LIBBASE_MODULE(Gpo)* GetPin()
-	{
-		return &m_pin;
-	}
+ protected:
+  LIBBASE_MODULE(Gpo)* GetPin() {
+    return &m_pin;
+  }
 
-private:
-	LIBBASE_MODULE(Gpo) m_pin;
-	bool m_is_active_low;
+ private:
+  LIBBASE_MODULE(Gpo) m_pin;
+  bool m_is_active_low;
 };
 
 }

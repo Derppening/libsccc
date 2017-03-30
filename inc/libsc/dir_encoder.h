@@ -11,25 +11,21 @@
 #include "libsc/config.h"
 #include "libsc/encoder.h"
 
-namespace libsc
-{
+namespace libsc {
 
-class DirEncoder : public Encoder
-{
-public:
-	typedef Encoder::Config Config;
+class DirEncoder : public Encoder {
+ public:
+  typedef Encoder::Config Config;
 
-	explicit DirEncoder(const Config &config);
+  explicit DirEncoder(const Config& config);
 
-protected:
-	struct Initializer : public Encoder::Initializer
-	{
-		explicit Initializer(const Config &config)
-				: Encoder::Initializer(config)
-		{}
+ protected:
+  struct Initializer : public Encoder::Initializer {
+    explicit Initializer(const Config& config)
+        : Encoder::Initializer(config) {}
 
-		QuadDecoder::Config GetQuadDecoderConfig() const override;
-	};
+    QuadDecoder::Config GetQuadDecoderConfig() const override;
+  };
 };
 
 }

@@ -11,15 +11,12 @@
 
 #include <cstdint>
 
-namespace libbase
-{
-namespace k60
-{
+namespace libbase {
+namespace k60 {
 
-class Dwt
-{
-public:
-	static void DelayUs(const uint16_t us);
+class Dwt {
+ public:
+  static void DelayUs(const uint16_t us);
 };
 
 }

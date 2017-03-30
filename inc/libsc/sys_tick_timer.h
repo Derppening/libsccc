@@ -15,24 +15,21 @@
 
 #include "libsc/timer.h"
 
-namespace libsc
-{
+namespace libsc {
 
-class SysTickTimer : public Timer
-{
-public:
-	SysTickTimer();
+class SysTickTimer : public Timer {
+ public:
+  SysTickTimer();
 
-	TimerInt Time() override
-	{
-		return m_ms;
-	}
+  TimerInt Time() override {
+    return m_ms;
+  }
 
-private:
-	void OnTick(LIBBASE_MODULE(SysTick)*);
+ private:
+  void OnTick(LIBBASE_MODULE(SysTick)*);
 
-	LIBBASE_MODULE(SysTick) m_pit;
-	volatile TimerInt m_ms;
+  LIBBASE_MODULE(SysTick) m_pit;
+  volatile TimerInt m_ms;
 };
 
 }
