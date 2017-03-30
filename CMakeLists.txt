@@ -6,7 +6,7 @@ include(CMakeForceCompiler)
 # specify what we're currently working with
 # valid options: david_desktop, david_laptop
 set(COMPILE_ENV david_laptop)
-set(SCCC_CONFIG 2017_INNO)
+set(SCCC_CONFIG 2017_CHASING)
 
 # specify the cross compiler
 set(TOOLCHAIN_PREFIX arm-none-eabi-)
@@ -19,8 +19,8 @@ CMAKE_FORCE_C_COMPILER(${CC} GNU)
 CMAKE_FORCE_CXX_COMPILER(${CXX} GNU)
 
 # define the c++ standard and includes to resolve *.h
-set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 11)
 
 include_directories(inc)
 
@@ -1148,10 +1148,12 @@ elseif (${SCCC_CONFIG} STREQUAL 2017_CHASING)
             -DLIBSC_USE_BUTTON=2
             -DLIBSC_USE_BUZZER=1
             -DLIBSC_USE_ENCODER=2
+            # -DLIBSC_USE_INFRA_RED_SENSOR=2
             -DLIBSC_USE_JOYSTICK=1
             -DLIBSC_USE_LCD=1
             -DLIBSC_USE_LED=4
             -DLIBSC_USE_MOTOR=2
+            # -DLIBSC_USE_MPU6050=1
             -DLIBSC_USE_OV7725=1
             -DLIBSC_USE_SERVO=1
             -DLIBSC_USE_UART=1
@@ -1209,16 +1211,10 @@ else ()
 endif ()
 
 # set make parameters
-if (${COMPILE_ENV} STREQUAL david_desktop)
-    set(MAKE_PATH "D:\\Program Files (x86)\\GnuWin32\\bin\\make.exe")
-else ()
-    set(MAKE_PATH "C:\\Program Files (x86)\\GnuWin32\\bin\\make.exe")
-endif ()
+set(MAKE_PATH "C:\\Program Files (x86)\\GnuWin32\\bin\\make.exe")
 set(MAKE_ARGS -f ${libsccc_SOURCE_DIR}/Makefile -k)
 if (${COMPILE_ENV} STREQUAL david_desktop)
     set(MAKE_ARGS ${MAKE_ARGS} -j8)
-elseif (${COMPILE_ENV} STREQUAL xanthe)
-    set(MAKE_ARGS ${MAKE_ARGS} -j2)
 else ()
     set(MAKE_ARGS ${MAKE_ARGS} -j4)
 endif ()
