@@ -18,44 +18,39 @@
 #include "libbase/kl26/pin.h"
 #include "libbase/kl26/pinout.h"
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-class PinIsrManager
-{
-public:
-	typedef std::function<void(const Pin::Name pin)> OnPinIrqListener;
+class PinIsrManager {
+ public:
+  typedef std::function<void(const Pin::Name pin)> OnPinIrqListener;
 
-	static void SetPinIsr(libbase::kl26::Pin *pin, const OnPinIrqListener &isr)
-	{
-		GetInstance()->SetPinIsr_(pin, isr);
-	}
+  static void SetPinIsr(libbase::kl26::Pin* pin, const OnPinIrqListener& isr) {
+    GetInstance()->SetPinIsr_(pin, isr);
+  }
 
-private:
-	struct PinData
-	{
-		Pin *pin = nullptr;
-		OnPinIrqListener isr = nullptr;
-	};
+ private:
+  struct PinData {
+    Pin* pin = nullptr;
+    OnPinIrqListener isr = nullptr;
+  };
 
-	PinIsrManager();
-	~PinIsrManager();
+  PinIsrManager();
+  ~PinIsrManager();
 
-	void InitPort(const Uint port);
+  void InitPort(const Uint port);
 
-	static PinIsrManager* GetInstance();
+  static PinIsrManager* GetInstance();
 
-	void SetPinIsr_(libbase::kl26::Pin *pin, const OnPinIrqListener &isr);
+  void SetPinIsr_(libbase::kl26::Pin* pin, const OnPinIrqListener& isr);
 
-	template<Uint port>
-	static __ISR void PortIrqHandler();
+  template<Uint port>
+  static __ISR void PortIrqHandler();
 
-	PinData* m_pin_data[PINOUT::GetPortCount()];
-	bool m_is_enable[PINOUT::GetPortCount()];
+  PinData* m_pin_data[PINOUT::GetPortCount()];
+  bool m_is_enable[PINOUT::GetPortCount()];
 
-	static PinIsrManager *m_instance;
+  static PinIsrManager* m_instance;
 };
 
 }

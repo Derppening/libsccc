@@ -11,18 +11,14 @@
 #include "libbase/k60/uart.h"
 #include "libbase/misc_types.h"
 
-namespace libbase
-{
-namespace k60
-{
+namespace libbase {
+namespace k60 {
 
-class UartUtils
-{
-public:
-	static Uint GetUartModule(const Uart::Name uart)
-	{
-		return static_cast<Uint>(uart) / 2;
-	}
+class UartUtils {
+ public:
+  static Uint GetUartModule(const Uart::Name uart) {
+    return static_cast<Uint>(uart) / 2;
+  }
 };
 
 }

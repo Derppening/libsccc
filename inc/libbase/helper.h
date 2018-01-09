@@ -17,7 +17,6 @@
 #define LIBSC_NS libsc::k60
 #define LIBSC_MODULE(module) LIBSC_NS::module
 
-
 #elif MKL26Z4
 #define LIBBASE_H(module) QUOTE(libbase/kl26/module.h)
 #define LIBBASE_NS libbase::kl26

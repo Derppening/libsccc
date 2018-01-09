@@ -12,21 +12,18 @@
 
 #include "libsc/servo.h"
 
-namespace libsc
-{
+namespace libsc {
 
 /**
  * TowerPro MG995 RC servo
  */
-class TowerProMg995 : public Servo
-{
-public:
-	struct Config
-	{
-		uint8_t id;
-	};
+class TowerProMg995 : public Servo {
+ public:
+  struct Config {
+    uint8_t id;
+  };
 
-	explicit TowerProMg995(const Config &config);
+  explicit TowerProMg995(const Config& config);
 };
 
 }

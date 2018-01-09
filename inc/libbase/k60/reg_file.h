@@ -14,34 +14,30 @@
 
 #include "libbase/misc_types.h"
 
-namespace libbase
-{
-namespace k60
-{
+namespace libbase {
+namespace k60 {
 
-class RegFile
-{
-public:
-	static RegFile& Get()
-	{
-		static RegFile inst;
-		return inst;
-	}
+class RegFile {
+ public:
+  static RegFile& Get() {
+    static RegFile inst;
+    return inst;
+  }
 
-	void Init();
+  void Init();
 
-	void WriteVbat(const Uint seek, const Byte *data, const size_t size);
-	void WriteVbat(const Uint seek, const Byte data);
-	Byte ReadVbat(const Uint seek);
-	std::vector<Byte> ReadVbat(const Uint seek, const size_t size);
+  void WriteVbat(const Uint seek, const Byte* data, const size_t size);
+  void WriteVbat(const Uint seek, const Byte data);
+  Byte ReadVbat(const Uint seek);
+  std::vector<Byte> ReadVbat(const Uint seek, const size_t size);
 
-	void WriteSystem(const Uint seek, const Byte *data, const size_t size);
-	void WriteSystem(const Uint seek, const Byte data);
-	Byte ReadSystem(const Uint seek);
-	std::vector<Byte> ReadSystem(const Uint seek, const size_t size);
+  void WriteSystem(const Uint seek, const Byte* data, const size_t size);
+  void WriteSystem(const Uint seek, const Byte data);
+  Byte ReadSystem(const Uint seek);
+  std::vector<Byte> ReadSystem(const Uint seek, const size_t size);
 
-private:
-	RegFile();
+ private:
+  RegFile();
 };
 
 }

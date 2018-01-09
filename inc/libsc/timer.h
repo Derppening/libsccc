@@ -10,35 +10,31 @@
 
 #include <cstdint>
 
-namespace libsc
-{
+namespace libsc {
 
-class Timer
-{
-public:
-	typedef uint32_t TimerInt;
+class Timer {
+ public:
+  typedef uint32_t TimerInt;
 
-	virtual ~Timer()
-	{}
+  virtual ~Timer() {}
 
-	/**
-	 * Return the time elapsed, in ms
-	 *
-	 * @return
-	 */
-	virtual TimerInt Time() = 0;
+  /**
+   * Return the time elapsed, in ms
+   *
+   * @return
+   */
+  virtual TimerInt Time() = 0;
 
-	/**
-	 * Return how @a a is apart from @a b
-	 *
-	 * @param a Some time in the future, in terms of @a b
-	 * @param b Some time in the past, in terms of @a a
-	 * @return
-	 */
-	static TimerInt TimeDiff(const TimerInt a, const TimerInt b)
-	{
-		return (TimerInt)(a - b);
-	}
+  /**
+   * Return how @a a is apart from @a b
+   *
+   * @param a Some time in the future, in terms of @a b
+   * @param b Some time in the past, in terms of @a a
+   * @return
+   */
+  static TimerInt TimeDiff(const TimerInt a, const TimerInt b) {
+    return (TimerInt) (a - b);
+  }
 };
 
 }

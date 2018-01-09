@@ -19,44 +19,40 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
-namespace
-{
+namespace {
 
-SysTick::Config GetSysTickConfig(const SysTick::OnSysTickTriggerListener &isr)
-{
-	SysTick::Config config;
+SysTick::Config GetSysTickConfig(const SysTick::OnSysTickTriggerListener& isr) {
+  SysTick::Config config;
 
 #ifndef USE_TIME_IN_125US
-	config.count = ClockUtils::GetCoreTickPerMs();
+  config.count = ClockUtils::GetCoreTickPerMs();
 #else
-	config.count = (uint32_t)(ClockUtils::GetCoreTickPerMs() / 8.38);
+  config.count = (uint32_t) (ClockUtils::GetCoreTickPerMs() / 8.38);
 #endif
 
-	config.isr = isr;
-	return config;
+  config.isr = isr;
+  return config;
 }
 
 }
 
 SysTickTimer::SysTickTimer()
-		: m_pit(GetSysTickConfig(std::bind(&SysTickTimer::OnTick, this,
-				std::placeholders::_1))),
+    : m_pit(GetSysTickConfig(std::bind(&SysTickTimer::OnTick, this,
+                                       std::placeholders::_1))),
 #ifndef USE_TIME_IN_125US
-		  m_ms(0)
+    m_ms(0)
 #else
-		  m_125us(0)
+      m_125us(0)
 #endif
 {}
 
-void SysTickTimer::OnTick(SysTick*)
-{
+void SysTickTimer::OnTick(SysTick*) {
 #ifndef USE_TIME_IN_125US
-	++m_ms;
+  ++m_ms;
 #else
-	++m_125us;
+  ++m_125us;
 #endif
 }
 

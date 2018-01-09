@@ -14,31 +14,29 @@
 
 #define USE_TIME_IN_125US
 
-namespace libsc
-{
+namespace libsc {
 
-class System
-{
-public:
-	static void Init();
+class System {
+ public:
+  static void Init();
 
-	static void DelayUs(const uint16_t us);
-	static void DelayMs(const uint16_t ms);
-	static void DelayS(const uint16_t s);
+  static void DelayUs(const uint16_t us);
+  static void DelayMs(const uint16_t ms);
+  static void DelayS(const uint16_t s);
 
-	/**
-	 * Return the time elapsed, in ms, since Init()
-	 *
-	 * @return
-	 */
-	static Timer::TimerInt Time();
+  /**
+   * Return the time elapsed, in ms, since Init()
+   *
+   * @return
+   */
+  static Timer::TimerInt Time();
 #ifdef USE_TIME_IN_125US
-	static Timer::TimerInt TimeIn125us();
+  static Timer::TimerInt TimeIn125us();
 #endif
 
-private:
-	struct Impl;
-	static Impl *m_instance;
+ private:
+  struct Impl;
+  static Impl* m_instance;
 };
 
 }

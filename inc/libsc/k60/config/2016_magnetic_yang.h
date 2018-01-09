@@ -24,7 +24,6 @@
 #define LIBSC_MPU6050_SCL libbase::k60::Pin::Name::kPtb2
 #define LIBSC_MPU6050_SDA libbase::k60::Pin::Name::kPtb3
 
-
 #define LIBSC_ENCODER0_QDA libbase::k60::Pin::Name::kPtb0
 #define LIBSC_ENCODER0_QDB libbase::k60::Pin::Name::kPtb1
 

@@ -15,24 +15,21 @@
 
 #include "libsc/timer.h"
 
-namespace libsc
-{
+namespace libsc {
 
-class PitTimer : public Timer
-{
-public:
-	explicit PitTimer(const uint8_t channel);
+class PitTimer : public Timer {
+ public:
+  explicit PitTimer(const uint8_t channel);
 
-	TimerInt Time() override
-	{
-		return m_ms;
-	}
+  TimerInt Time() override {
+    return m_ms;
+  }
 
-private:
-	void OnTick(LIBBASE_MODULE(Pit)*);
+ private:
+  void OnTick(LIBBASE_MODULE(Pit)*);
 
-	LIBBASE_MODULE(Pit) m_pit;
-	volatile TimerInt m_ms;
+  LIBBASE_MODULE(Pit) m_pit;
+  volatile TimerInt m_ms;
 };
 
 }

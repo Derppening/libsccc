@@ -14,24 +14,21 @@
 
 #include "libsc/timer.h"
 
-namespace libsc
-{
-namespace kl26
-{
+namespace libsc {
+namespace kl26 {
 
-class LptmrTimer : public Timer
-{
-public:
-	LptmrTimer();
+class LptmrTimer : public Timer {
+ public:
+  LptmrTimer();
 
-	TimerInt Time() override;
+  TimerInt Time() override;
 
-private:
-	void OnTick(libbase::kl26::Lptmr*);
+ private:
+  void OnTick(libbase::kl26::Lptmr*);
 
-	libbase::kl26::Lptmr m_lptmr;
-	volatile TimerInt m_ms;
-	volatile uint16_t m_prev_counter;
+  libbase::kl26::Lptmr m_lptmr;
+  volatile TimerInt m_ms;
+  volatile uint16_t m_prev_counter;
 };
 
 }

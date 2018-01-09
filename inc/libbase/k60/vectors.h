@@ -41,9 +41,9 @@ extern "C" {
 #include "libbase/k60/misc_utils_c.h"
 
 /* Interrupt handler type definition */
-typedef void (*tIsrFunc)(void);
+typedef void (* tIsrFunc)(void);
 
-typedef void (*HardFaultHandler)(void);
+typedef void (* HardFaultHandler)(void);
 extern HardFaultHandler g_hard_fault_handler;
 
 #define GetActiveVector() ((SCB->ICSR & SCB_ICSR_VECTACTIVE_Msk) >> SCB_ICSR_VECTACTIVE_Pos)

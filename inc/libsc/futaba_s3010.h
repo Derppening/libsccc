@@ -12,21 +12,18 @@
 
 #include "libsc/servo.h"
 
-namespace libsc
-{
+namespace libsc {
 
 /**
  * Futaba S3010 RC servo
  */
-class FutabaS3010 : public Servo
-{
-public:
-	struct Config
-	{
-		uint8_t id;
-	};
+class FutabaS3010 : public Servo {
+ public:
+  struct Config {
+    uint8_t id;
+  };
 
-	explicit FutabaS3010(const Config &config);
+  explicit FutabaS3010(const Config& config);
 };
 
 }

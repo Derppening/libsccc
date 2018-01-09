@@ -18,8 +18,7 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
 #ifdef LIBSC_USE_BUZZER
 
@@ -29,46 +28,45 @@ namespace
 #if LIBSC_USE_BUZZER == 1
 inline Pin::Name GetPin(const uint8_t id)
 {
-	if (id != 0)
-	{
-		assert(false);
-	}
-	return LIBSC_BUZZER0;
+    if (id != 0)
+    {
+        assert(false);
+    }
+    return LIBSC_BUZZER0;
 }
 
 #endif
 
 Gpo::Config GetGpoConfig(const SimpleBuzzer::Config &config)
 {
-	Gpo::Config product;
-	product.pin = GetPin(config.id);
-	// Default off
-	product.is_high = config.is_active_low;
-	return product;
+    Gpo::Config product;
+    product.pin = GetPin(config.id);
+    // Default off
+    product.is_high = config.is_active_low;
+    return product;
 }
 
 }
 
 SimpleBuzzer::SimpleBuzzer(const Config &config)
-		: m_pin(GetGpoConfig(config)),
-		  m_is_active_low(config.is_active_low)
+        : m_pin(GetGpoConfig(config)),
+          m_is_active_low(config.is_active_low)
 {}
 
 void SimpleBuzzer::SetBeep(const bool is_beep)
 {
-	m_pin.Set(is_beep ^ m_is_active_low);
+    m_pin.Set(is_beep ^ m_is_active_low);
 }
 
 bool SimpleBuzzer::GetBeep() const
 {
-	return (m_pin.Get() ^ m_is_active_low);
+    return (m_pin.Get() ^ m_is_active_low);
 }
 
 #else
 SimpleBuzzer::SimpleBuzzer(const Config&)
-		: m_pin(nullptr), m_is_active_low(false)
-{
-	LOG_DL("Configured not to use SimpleBuzzer");
+    : m_pin(nullptr), m_is_active_low(false) {
+  LOG_DL("Configured not to use SimpleBuzzer");
 }
 void SimpleBuzzer::SetBeep(const bool) {}
 bool SimpleBuzzer::GetBeep() const { return false; }

@@ -10,23 +10,19 @@
 
 #include "libbase/kl26/pinout_macros.h"
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-class I2c
-{
-public:
-	enum struct Name
-	{
-		kI2c0Scl = 0,
-		kI2c0Sda,
-		kI2c1Scl,
-		kI2c1Sda,
+class I2c {
+ public:
+  enum struct Name {
+    kI2c0Scl = 0,
+    kI2c0Sda,
+    kI2c1Scl,
+    kI2c1Sda,
 
-		kDisable
-	};
+    kDisable
+  };
 };
 
 }

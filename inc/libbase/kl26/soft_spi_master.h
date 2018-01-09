@@ -15,60 +15,55 @@
 #include "libbase/kl26/gpio.h"
 #include "libbase/kl26/spi_master_interface.h"
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-class SoftSpiMaster : public SpiMasterInterface
-{
-public:
-	typedef SpiMasterInterface::Config Config;
+class SoftSpiMaster : public SpiMasterInterface {
+ public:
+  typedef SpiMasterInterface::Config Config;
 
-	/**
-	 * Construct a new instance. Only the following parameters are supported,
-	 * others will be ignored:
-	 * sin_pin, sout_pin, sck_pin, frame_size, is_sck_idle_low, is_msb_firt,
-	 * slaves
-	 *
-	 * @param config
-	 */
-	explicit SoftSpiMaster(const Config &config);
-	explicit SoftSpiMaster(nullptr_t);
-	SoftSpiMaster(const SoftSpiMaster&) = delete;
-	SoftSpiMaster(SoftSpiMaster &&rhs);
-	~SoftSpiMaster(){}
+  /**
+   * Construct a new instance. Only the following parameters are supported,
+   * others will be ignored:
+   * sin_pin, sout_pin, sck_pin, frame_size, is_sck_idle_low, is_msb_firt,
+   * slaves
+   *
+   * @param config
+   */
+  explicit SoftSpiMaster(const Config& config);
+  explicit SoftSpiMaster(nullptr_t);
+  SoftSpiMaster(const SoftSpiMaster&) = delete;
+  SoftSpiMaster(SoftSpiMaster&& rhs);
+  ~SoftSpiMaster() {}
 
-	SoftSpiMaster& operator=(const SoftSpiMaster&) = delete;
-	SoftSpiMaster& operator=(SoftSpiMaster &&rhs);
-	operator bool() const override
-	{
-		return m_is_init;
-	}
+  SoftSpiMaster& operator=(const SoftSpiMaster&) = delete;
+  SoftSpiMaster& operator=(SoftSpiMaster&& rhs);
+  operator bool() const override {
+    return m_is_init;
+  }
 
-	uint16_t ExchangeData(const uint8_t slave_id, const uint16_t data) override;
+  uint16_t ExchangeData(const uint8_t slave_id, const uint16_t data) override;
 
-	size_t PushData(const uint8_t slave_id, const uint16_t *data,
-			const size_t size) override;
-	size_t PushData(const uint8_t slave_id, const uint8_t *data,
-			const size_t size) override;
+  size_t PushData(const uint8_t slave_id, const uint16_t* data,
+                  const size_t size) override;
+  size_t PushData(const uint8_t slave_id, const uint8_t* data,
+                  const size_t size) override;
 
-	uint8_t GetFrameSize() const
-	{
-		return m_frame_size;
-	}
+  uint8_t GetFrameSize() const {
+    return m_frame_size;
+  }
 
-private:
-	Gpi m_sin;
-	Gpo m_sout;
-	Gpo m_sck;
-	Gpo m_cs;
+ private:
+  Gpi m_sin;
+  Gpo m_sout;
+  Gpo m_sck;
+  Gpo m_cs;
 
-	uint8_t m_frame_size;
-	bool m_is_sck_capture_first;
-	bool m_is_msb_first;
+  uint8_t m_frame_size;
+  bool m_is_sck_capture_first;
+  bool m_is_msb_first;
 
-	bool m_is_init;
+  bool m_is_init;
 };
 
 }

@@ -15,28 +15,23 @@
 
 #include "libsc/k60/uart_device.h"
 
-namespace libsc
-{
-namespace k60
-{
+namespace libsc {
+namespace k60 {
 
-class JyMcuBt106 : public UartDevice
-{
-public:
-	typedef UartDevice::Config Config;
+class JyMcuBt106 : public UartDevice {
+ public:
+  typedef UartDevice::Config Config;
 
-	explicit JyMcuBt106(const Config &config);
-	explicit JyMcuBt106(nullptr_t);
+  explicit JyMcuBt106(const Config& config);
+  explicit JyMcuBt106(nullptr_t);
 
-protected:
-	struct Initializer : public UartDevice::Initializer
-	{
-		explicit Initializer(const Config &config)
-				: UartDevice::Initializer(config)
-		{}
+ protected:
+  struct Initializer : public UartDevice::Initializer {
+    explicit Initializer(const Config& config)
+        : UartDevice::Initializer(config) {}
 
-		libbase::k60::Uart::Config GetUartConfig() const override;
-	};
+    libbase::k60::Uart::Config GetUartConfig() const override;
+  };
 };
 
 }

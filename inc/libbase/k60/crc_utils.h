@@ -14,15 +14,12 @@
 #include "libbase/k60/crc.h"
 #include "libbase/k60/misc_utils.h"
 
-namespace libbase
-{
-namespace k60
-{
+namespace libbase {
+namespace k60 {
 
-class CrcUtils
-{
-public:
-	static uint32_t Calc(Crc *crc, const Byte *data, const size_t size);
+class CrcUtils {
+ public:
+  static uint32_t Calc(Crc* crc, const Byte* data, const size_t size);
 };
 
 }

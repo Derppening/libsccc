@@ -35,7 +35,6 @@
 
 #define LIBSC_ST7735R_BGR_PANEL 1
 
-
 #define LIBSC_LINEAR_CCD1_SI libbase::k60::Pin::Name::kPta26
 #define LIBSC_LINEAR_CCD1_CLK libbase::k60::Pin::Name::kPta28
 #define LIBSC_LINEAR_CCD1_AD libbase::k60::Pin::Name::kPtb5
@@ -72,7 +71,6 @@
 
 #define LIBSC_SERVO0 libbase::k60::Pin::Name::kPtc4
 #define LIBSC_SERVO1 libbase::k60::Pin::Name::kPtc3
-
 
 #define LIBSC_UART0_TX libbase::k60::Pin::Name::kPtb17
 #define LIBSC_UART0_RX libbase::k60::Pin::Name::kPtb16

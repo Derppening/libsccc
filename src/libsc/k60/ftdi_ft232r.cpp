@@ -13,19 +13,16 @@
 
 using namespace libbase::k60;
 
-namespace libsc
-{
-namespace k60
-{
+namespace libsc {
+namespace k60 {
 
 #ifdef LIBSC_USE_UART
-FtdiFt232r::FtdiFt232r(const Config &config)
-		: UartDevice(Initializer(config))
-{}
+FtdiFt232r::FtdiFt232r(const Config& config)
+    : UartDevice(Initializer(config)) {}
 
 #else /* LIBSC_USE_UART */
 FtdiFt232r::FtdiFt232r(const Config&)
-		: UartDevice(nullptr)
+        : UartDevice(nullptr)
 {}
 
 #endif /* LIBSC_USE_UART */

@@ -13,26 +13,23 @@
 #include "libbase/helper.h"
 #include LIBBASE_H(gpio)
 
-namespace libsc
-{
+namespace libsc {
 
-class SimpleBuzzer
-{
-public:
-	struct Config
-	{
-		uint8_t id;
-		bool is_active_low;
-	};
+class SimpleBuzzer {
+ public:
+  struct Config {
+    uint8_t id;
+    bool is_active_low;
+  };
 
-	explicit SimpleBuzzer(const Config &config);
+  explicit SimpleBuzzer(const Config& config);
 
-	void SetBeep(const bool is_beep);
-	bool GetBeep() const;
+  void SetBeep(const bool is_beep);
+  bool GetBeep() const;
 
-private:
-	LIBBASE_MODULE(Gpo) m_pin;
-	bool m_is_active_low;
+ private:
+  LIBBASE_MODULE(Gpo) m_pin;
+  bool m_is_active_low;
 };
 
 }

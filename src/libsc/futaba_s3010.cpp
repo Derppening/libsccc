@@ -14,26 +14,22 @@
 #define POS_WIDTH_MIN 1500 - 500
 #define POS_WIDTH_MAX 1500 + 500
 
-namespace libsc
-{
+namespace libsc {
 
-namespace
-{
+namespace {
 
-Servo::Config GetServoConfig(const uint8_t id)
-{
-	Servo::Config config;
-	config.id = id;
-	config.period = PERIOD;
-	config.min_pos_width = POS_WIDTH_MIN;
-	config.max_pos_width = POS_WIDTH_MAX;
-	return config;
+Servo::Config GetServoConfig(const uint8_t id) {
+  Servo::Config config;
+  config.id = id;
+  config.period = PERIOD;
+  config.min_pos_width = POS_WIDTH_MIN;
+  config.max_pos_width = POS_WIDTH_MAX;
+  return config;
 }
 
 }
 
-FutabaS3010::FutabaS3010(const Config &config)
-		: Servo(GetServoConfig(config.id))
-{}
+FutabaS3010::FutabaS3010(const Config& config)
+    : Servo(GetServoConfig(config.id)) {}
 
 }

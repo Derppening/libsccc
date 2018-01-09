@@ -16,44 +16,36 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
-namespace
-{
+namespace {
 
-Pit::Config GetPitConfig(const uint8_t channel)
-{
-	Pit::Config pc;
-	pc.channel = channel;
-	pc.is_enable = false;
-	return pc;
+Pit::Config GetPitConfig(const uint8_t channel) {
+  Pit::Config pc;
+  pc.channel = channel;
+  pc.is_enable = false;
+  return pc;
 }
 
 }
 
 PitDelay::PitDelay(const uint8_t channel)
-		: m_pit(GetPitConfig(channel))
-{}
+    : m_pit(GetPitConfig(channel)) {}
 
-inline void PitDelay::DelayCount(const uint32_t count)
-{
-	m_pit.SetCount(count);
-	m_pit.SetEnable(true);
-	m_pit.ConsumeInterrupt();
-	while (!m_pit.IsInterruptRequested())
-	{}
-	m_pit.SetEnable(false);
+inline void PitDelay::DelayCount(const uint32_t count) {
+  m_pit.SetCount(count);
+  m_pit.SetEnable(true);
+  m_pit.ConsumeInterrupt();
+  while (!m_pit.IsInterruptRequested()) {}
+  m_pit.SetEnable(false);
 }
 
-void PitDelay::DelayUs(const uint16_t us)
-{
-	DelayCount(ClockUtils::GetBusTickPerUs(us));
+void PitDelay::DelayUs(const uint16_t us) {
+  DelayCount(ClockUtils::GetBusTickPerUs(us));
 }
 
-void PitDelay::DelayMs(const uint16_t ms)
-{
-	DelayCount(ClockUtils::GetBusTickPerMs(ms));
+void PitDelay::DelayMs(const uint16_t ms) {
+  DelayCount(ClockUtils::GetBusTickPerMs(ms));
 }
 
 }

@@ -16,54 +16,44 @@
 #include "libbase/kl26/misc_utils.h"
 #include "libbase/kl26/sim.h"
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-namespace
-{
+namespace {
 
-uint32_t GetBusClock_()
-{
-	return Mcg::Get().GetCoreClock() / Sim::GetBusClockDivider();
+uint32_t GetBusClock_() {
+  return Mcg::Get().GetCoreClock() / Sim::GetBusClockDivider();
 }
 
 }
 
-uint32_t ClockUtils::GetCoreClock()
-{
-	return Mcg::Get().GetCoreClock();
+uint32_t ClockUtils::GetCoreClock() {
+  return Mcg::Get().GetCoreClock();
 }
 
-uint32_t ClockUtils::GetCoreClockKhz()
-{
-	static uint32_t cache = GetCoreClock() / 1000;
-	return cache;
+uint32_t ClockUtils::GetCoreClockKhz() {
+  static uint32_t cache = GetCoreClock() / 1000;
+  return cache;
 }
 
-uint32_t ClockUtils::GetCoreClockMhz()
-{
-	static uint32_t cache = GetCoreClock() / 1000000;
-	return cache;
+uint32_t ClockUtils::GetCoreClockMhz() {
+  static uint32_t cache = GetCoreClock() / 1000000;
+  return cache;
 }
 
-uint32_t ClockUtils::GetBusClock()
-{
-	static uint32_t cache = GetBusClock_();
-	return cache;
+uint32_t ClockUtils::GetBusClock() {
+  static uint32_t cache = GetBusClock_();
+  return cache;
 }
 
-uint32_t ClockUtils::GetBusClockKhz()
-{
-	static uint32_t cache = GetBusClock() / 1000;
-	return cache;
+uint32_t ClockUtils::GetBusClockKhz() {
+  static uint32_t cache = GetBusClock() / 1000;
+  return cache;
 }
 
-uint32_t ClockUtils::GetBusClockMhz()
-{
-	static uint32_t cache = GetBusClock() / 1000000;
-	return cache;
+uint32_t ClockUtils::GetBusClockMhz() {
+  static uint32_t cache = GetBusClock() / 1000000;
+  return cache;
 }
 
 }

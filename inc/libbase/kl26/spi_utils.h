@@ -12,23 +12,18 @@
 #include "libbase/kl26/pinout.h"
 #include "libbase/kl26/spi.h"
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-class SpiUtils
-{
-public:
-	static Uint GetSpiModule(const Spi::PcsName pcs)
-	{
-		return static_cast<Uint>(pcs) / Spi::GetMaxSpiPcsCount();
-	}
+class SpiUtils {
+ public:
+  static Uint GetSpiModule(const Spi::PcsName pcs) {
+    return static_cast<Uint>(pcs) / Spi::GetMaxSpiPcsCount();
+  }
 
-	static Uint GetSpiPcs(const Spi::PcsName pcs)
-	{
-		return static_cast<Uint>(pcs) % Spi::GetMaxSpiPcsCount();
-	}
+  static Uint GetSpiPcs(const Spi::PcsName pcs) {
+    return static_cast<Uint>(pcs) % Spi::GetMaxSpiPcsCount();
+  }
 };
 
 }

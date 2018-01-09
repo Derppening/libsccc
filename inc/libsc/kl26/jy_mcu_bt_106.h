@@ -16,27 +16,22 @@
 
 #include "libsc/kl26/uart_device.h"
 
-namespace libsc
-{
-namespace kl26
-{
+namespace libsc {
+namespace kl26 {
 
-class JyMcuBt106 : public UartDevice
-{
-public:
-	typedef UartDevice::Config Config;
+class JyMcuBt106 : public UartDevice {
+ public:
+  typedef UartDevice::Config Config;
 
-	explicit JyMcuBt106(const Config &config);
+  explicit JyMcuBt106(const Config& config);
 
-protected:
-	struct Initializer : public UartDevice::Initializer
-	{
-		explicit Initializer(const Config &config)
-				: UartDevice::Initializer(config)
-		{}
+ protected:
+  struct Initializer : public UartDevice::Initializer {
+    explicit Initializer(const Config& config)
+        : UartDevice::Initializer(config) {}
 
-		LIBBASE_MODULE(Uart)::Config GetUartConfig() const override;
-	};
+    LIBBASE_MODULE(Uart)::Config GetUartConfig() const override;
+  };
 };
 
 }

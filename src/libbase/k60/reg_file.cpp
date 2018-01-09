@@ -21,105 +21,85 @@
 
 using namespace std;
 
-namespace libbase
-{
-namespace k60
-{
+namespace libbase {
+namespace k60 {
 
-RegFile::RegFile()
-{}
+RegFile::RegFile() {}
 
-void RegFile::Init()
-{
-	Sim::SetEnableClockGate(Sim::ClockGate::kRegFile, true);
+void RegFile::Init() {
+  Sim::SetEnableClockGate(Sim::ClockGate::kRegFile, true);
 }
 
-void RegFile::WriteVbat(const Uint seek, const Byte *data, const size_t size)
-{
-	if (seek >= sizeof(RFVBAT_Type))
-	{
-		assert(false);
-		return;
-	}
-	void *to = ((Byte*)RFVBAT->REG) + seek;
-	memcpy(to, data, std::min(size, sizeof(RFVBAT_Type) - seek));
+void RegFile::WriteVbat(const Uint seek, const Byte* data, const size_t size) {
+  if (seek >= sizeof(RFVBAT_Type)) {
+    assert(false);
+    return;
+  }
+  void* to = ((Byte*) RFVBAT->REG) + seek;
+  memcpy(to, data, std::min(size, sizeof(RFVBAT_Type) - seek));
 }
 
-void RegFile::WriteVbat(const Uint seek, const Byte data)
-{
-	if (seek >= sizeof(RFVBAT_Type))
-	{
-		assert(false);
-		return;
-	}
-	((volatile Byte*)RFVBAT->REG)[seek] = data;
+void RegFile::WriteVbat(const Uint seek, const Byte data) {
+  if (seek >= sizeof(RFVBAT_Type)) {
+    assert(false);
+    return;
+  }
+  ((volatile Byte*) RFVBAT->REG)[seek] = data;
 }
 
-Byte RegFile::ReadVbat(const Uint seek)
-{
-	if (seek >= sizeof(RFVBAT_Type))
-	{
-		assert(false);
-		return 0;
-	}
-	return ((volatile Byte*)RFVBAT->REG)[seek];
+Byte RegFile::ReadVbat(const Uint seek) {
+  if (seek >= sizeof(RFVBAT_Type)) {
+    assert(false);
+    return 0;
+  }
+  return ((volatile Byte*) RFVBAT->REG)[seek];
 }
 
-vector<Byte> RegFile::ReadVbat(const Uint seek, const size_t size)
-{
-	if (seek >= sizeof(RFVBAT_Type))
-	{
-		assert(false);
-		return {};
-	}
-	vector<Byte> product(std::min(size, sizeof(RFVBAT_Type) - seek));
-	void *from = ((Byte*)RFVBAT->REG) + seek;
-	memcpy(product.data(), from, product.size());
-	return product;
+vector<Byte> RegFile::ReadVbat(const Uint seek, const size_t size) {
+  if (seek >= sizeof(RFVBAT_Type)) {
+    assert(false);
+    return {};
+  }
+  vector<Byte> product(std::min(size, sizeof(RFVBAT_Type) - seek));
+  void* from = ((Byte*) RFVBAT->REG) + seek;
+  memcpy(product.data(), from, product.size());
+  return product;
 }
 
-void RegFile::WriteSystem(const Uint seek, const Byte *data, const size_t size)
-{
-	if (seek >= sizeof(RFSYS_Type))
-	{
-		assert(false);
-		return;
-	}
-	void *to = ((Byte*)RFSYS->REG) + seek;
-	memcpy(to, data, std::min(size, sizeof(RFSYS_Type) - seek));
+void RegFile::WriteSystem(const Uint seek, const Byte* data, const size_t size) {
+  if (seek >= sizeof(RFSYS_Type)) {
+    assert(false);
+    return;
+  }
+  void* to = ((Byte*) RFSYS->REG) + seek;
+  memcpy(to, data, std::min(size, sizeof(RFSYS_Type) - seek));
 }
 
-void RegFile::WriteSystem(const Uint seek, const Byte data)
-{
-	if (seek >= sizeof(RFSYS_Type))
-	{
-		assert(false);
-		return;
-	}
-	((volatile Byte*)RFSYS->REG)[seek] = data;
+void RegFile::WriteSystem(const Uint seek, const Byte data) {
+  if (seek >= sizeof(RFSYS_Type)) {
+    assert(false);
+    return;
+  }
+  ((volatile Byte*) RFSYS->REG)[seek] = data;
 }
 
-Byte RegFile::ReadSystem(const Uint seek)
-{
-	if (seek >= sizeof(RFSYS_Type))
-	{
-		assert(false);
-		return 0;
-	}
-	return ((volatile Byte*)RFSYS->REG)[seek];
+Byte RegFile::ReadSystem(const Uint seek) {
+  if (seek >= sizeof(RFSYS_Type)) {
+    assert(false);
+    return 0;
+  }
+  return ((volatile Byte*) RFSYS->REG)[seek];
 }
 
-vector<Byte> RegFile::ReadSystem(const Uint seek, const size_t size)
-{
-	if (seek >= sizeof(RFSYS_Type))
-	{
-		assert(false);
-		return {};
-	}
-	vector<Byte> product(std::min(size, sizeof(RFSYS_Type) - seek));
-	void *from = ((Byte*)RFSYS->REG) + seek;
-	memcpy(product.data(), from, product.size());
-	return product;
+vector<Byte> RegFile::ReadSystem(const Uint seek, const size_t size) {
+  if (seek >= sizeof(RFSYS_Type)) {
+    assert(false);
+    return {};
+  }
+  vector<Byte> product(std::min(size, sizeof(RFSYS_Type) - seek));
+  void* from = ((Byte*) RFSYS->REG) + seek;
+  memcpy(product.data(), from, product.size());
+  return product;
 }
 
 }

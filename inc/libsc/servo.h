@@ -27,57 +27,53 @@
 
 #include "libsc/config.h"
 
-namespace libsc
-{
+namespace libsc {
 
 /**
  * RC servo
  */
-class Servo
-{
-public:
+class Servo {
+ public:
 #if LIBSC_USE_SOFT_SERVO
-	typedef LIBBASE_MODULE(SoftPwm) Pwm;
+  typedef LIBBASE_MODULE(SoftPwm) Pwm;
 
 #elif PINOUT_FTM_COUNT
-	typedef LIBBASE_MODULE(FtmPwm) Pwm;
+  typedef LIBBASE_MODULE(FtmPwm) Pwm;
 
 #elif PINOUT_TPM_COUNT
-	typedef LIBBASE_MODULE(TpmPwm) Pwm;
+  typedef LIBBASE_MODULE(TpmPwm) Pwm;
 
 #endif // LIBSC_USE_SOFT_SERVO
 
-	struct Config
-	{
-		uint8_t id;
-		/// The period of the PWM signal, in us
-		uint16_t period;
-		/// The min pos width of the PWM signal, in us
-		uint16_t min_pos_width;
-		/// The max pos width of the PWM signal, in us
-		uint16_t max_pos_width;
-	};
+  struct Config {
+    uint8_t id;
+    /// The period of the PWM signal, in us
+    uint16_t period;
+    /// The min pos width of the PWM signal, in us
+    uint16_t min_pos_width;
+    /// The max pos width of the PWM signal, in us
+    uint16_t max_pos_width;
+  };
 
-	explicit Servo(const Config &config);
+  explicit Servo(const Config& config);
 
-	/**
-	 * Set the degree(the servo turn in CCW), [0, 180] * 10 (i.e., 84 => 8.4°)
-	 *
-	 * @param degree
-	 */
-	void SetDegree(const uint16_t degree);
-	uint16_t GetDegree() const
-	{
-		return m_degree;
-	}
+  /**
+   * Set the degree(the servo turn in CCW), [0, 180] * 10 (i.e., 84 => 8.4°)
+   *
+   * @param degree
+   */
+  void SetDegree(const uint16_t degree);
+  uint16_t GetDegree() const {
+    return m_degree;
+  }
 
-private:
-	const uint16_t m_pos_width_min;
-	const uint16_t m_pos_width_diff;
+ private:
+  const uint16_t m_pos_width_min;
+  const uint16_t m_pos_width_diff;
 
-	Pwm m_pwm;
+  Pwm m_pwm;
 
-	uint16_t m_degree;
+  uint16_t m_degree;
 };
 
 }

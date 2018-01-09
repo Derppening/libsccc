@@ -8,34 +8,29 @@
 
 #pragma once
 
-namespace libbase
-{
-namespace k60
-{
+namespace libbase {
+namespace k60 {
 
-class Cache
-{
-public:
-	struct Config
-	{
-		bool is_enable;
-	};
+class Cache {
+ public:
+  struct Config {
+    bool is_enable;
+  };
 
-	static Cache& Get()
-	{
-		static Cache inst;
-		return inst;
-	}
+  static Cache& Get() {
+    static Cache inst;
+    return inst;
+  }
 
-	void Init(const Config &config);
+  void Init(const Config& config);
 
-private:
-	Cache();
+ private:
+  Cache();
 
-	void InitPc();
-	void InitPs();
+  void InitPc();
+  void InitPs();
 
-	bool m_is_init;
+  bool m_is_init;
 };
 
 }

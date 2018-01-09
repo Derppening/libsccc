@@ -16,47 +16,42 @@
 #include "libbase/helper.h"
 #include LIBBASE_H(gpio)
 
-namespace libsc
-{
+namespace libsc {
 
-class Button
-{
-public:
-	typedef std::function<void(const uint8_t id)> Listener;
+class Button {
+ public:
+  typedef std::function<void(const uint8_t id)> Listener;
 
-	struct Config
-	{
-		enum struct Trigger
-		{
-			kDown,
-			kUp,
-			kBoth,
-		};
+  struct Config {
+    enum struct Trigger {
+      kDown,
+      kUp,
+      kBoth,
+    };
 
-		uint8_t id;
-		bool is_active_low;
-		/**
-		 * If set, the internal resistor will be used to hold the pin deserted.
-		 * Useful if the button is not connected to one on the board
-		 */
-		bool is_use_pull_resistor = false;
-		Listener listener;
-		/// When to trigger the listener, ignored if Config::listener is not set
-		Trigger listener_trigger;
-	};
+    uint8_t id;
+    bool is_active_low;
+    /**
+     * If set, the internal resistor will be used to hold the pin deserted.
+     * Useful if the button is not connected to one on the board
+     */
+    bool is_use_pull_resistor = false;
+    Listener listener;
+    /// When to trigger the listener, ignored if Config::listener is not set
+    Trigger listener_trigger;
+  };
 
-	explicit Button(const Config &config);
-	explicit Button(nullptr_t);
+  explicit Button(const Config& config);
+  explicit Button(nullptr_t);
 
-	bool IsDown() const;
-	bool IsUp() const
-	{
-		return !IsDown();
-	}
+  bool IsDown() const;
+  bool IsUp() const {
+    return !IsDown();
+  }
 
-private:
-	LIBBASE_MODULE(Gpi) m_pin;
-	bool m_is_active_low;
+ private:
+  LIBBASE_MODULE(Gpi) m_pin;
+  bool m_is_active_low;
 };
 
 }

@@ -15,41 +15,37 @@
 
 #include "libsc/timer.h"
 
-namespace libsc
-{
+namespace libsc {
 
-class SysTickTimer : public Timer
-{
-public:
-	SysTickTimer();
+class SysTickTimer : public Timer {
+ public:
+  SysTickTimer();
 
 #ifndef USE_TIME_IN_125US
-	TimerInt Time() override
-	{
-		return m_ms;
-	}
+  TimerInt Time() override
+  {
+      return m_ms;
+  }
 
 #else
-	TimerInt Time() override
-	{
-		return m_125us >> 3;
-	}
+  TimerInt Time() override {
+    return m_125us >> 3;
+  }
 
-	TimerInt TimeIn125us()
-	{
-		return m_125us;
-	}
+  TimerInt TimeIn125us() {
+    return m_125us;
+  }
 #endif
 
-private:
-	void OnTick(LIBBASE_MODULE(SysTick)*);
+ private:
+  void OnTick(LIBBASE_MODULE(SysTick)*);
 
-	LIBBASE_MODULE(SysTick) m_pit;
+  LIBBASE_MODULE(SysTick) m_pit;
 
 #ifndef USE_TIME_IN_125US
-	volatile TimerInt m_ms;
+  volatile TimerInt m_ms;
 #else
-	volatile TimerInt m_125us;
+  volatile TimerInt m_125us;
 #endif
 };
 

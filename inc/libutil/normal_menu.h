@@ -33,107 +33,107 @@ using namespace std;
 
 class Menu {
 private:
-	/*
-	 * Type of the item's data
-	 */
-	enum var_type {
-		uint8, int8, uint16, int16, uint32, int32, flp, boolean, menu, func
-	};
+    /*
+     * Type of the item's data
+     */
+    enum var_type {
+        uint8, int8, uint16, int16, uint32, int32, flp, boolean, menu, func
+    };
 
-	struct Items;
+    struct Items;
 
-	/*
-	 * Item structure that stores all the necessary information
-	 */
-	struct Item {
-		char *name = nullptr;
-		var_type type = menu;
-		uint8_t value_index = 0;
-		float interval = 0;
-		char* true_text = nullptr;
-		char* false_text = nullptr;
-		Items *sub_menu = nullptr;
-	};
+    /*
+     * Item structure that stores all the necessary information
+     */
+    struct Item {
+        char *name = nullptr;
+        var_type type = menu;
+        uint8_t value_index = 0;
+        float interval = 0;
+        char* true_text = nullptr;
+        char* false_text = nullptr;
+        Items *sub_menu = nullptr;
+    };
 
-	/*
-	 * Items structure that stores more item, act like a sub menu
-	 */
-	struct Items {
-		std::vector<Item> menu_items;
-		char *menu_name = nullptr;
-	};
+    /*
+     * Items structure that stores more item, act like a sub menu
+     */
+    struct Items {
+        std::vector<Item> menu_items;
+        char *menu_name = nullptr;
+    };
 public:
-	/*
-	 * Default contructor
-	 * Pass lcd, lcd console, joystick and flash(keep the data memory even the device shut down) into menu class
-	 * Pass flash as nullptr if don't want the data saved at flash
-	 */
-	Menu(bool is_landscape, libsc::St7735r *lcd, libsc::LcdConsole *console, libsc::Joystick *joystick, libsc::BatteryMeter *battery_meter, libbase::k60::Flash *flash);
+    /*
+     * Default contructor
+     * Pass lcd, lcd console, joystick and flash(keep the data memory even the device shut down) into menu class
+     * Pass flash as nullptr if don't want the data saved at flash
+     */
+    Menu(bool is_landscape, libsc::St7735r *lcd, libsc::LcdConsole *console, libsc::Joystick *joystick, libsc::BatteryMeter *battery_meter, libbase::k60::Flash *flash);
 
-	Items main_menu;
+    Items main_menu;
 
-	/*
-	 * Add items to the menu
-	 * Use override function to allow different type of data added to the menu
-	 *
-	 * @param *menu the menu you want the item add in
-	 */
-	void AddItem(char *name, uint8_t *value, uint8_t interval, Items *menu);
-	void AddItem(char *name, int8_t *value, uint8_t interval, Items *menu);
-	void AddItem(char *name, uint16_t *value, uint16_t interval, Items *menu);
-	void AddItem(char *name, int16_t *value, uint16_t interval, Items *menu);
-	void AddItem(char *name, uint32_t *value, uint32_t interval, Items *menu);
-	void AddItem(char *name, int32_t *value, uint32_t interval, Items *menu);
-	void AddItem(char *name, float *value, float interval, Items *menu);
-	void AddItem(char *name, bool *value, char *true_text, char *false_text, Items *menu);
-	void AddItem(char *menu_name, Items *menu);
-	void AddItem(char *name, std::function<void()> f, Items *menu);
+    /*
+     * Add items to the menu
+     * Use override function to allow different type of data added to the menu
+     *
+     * @param *menu the menu you want the item add in
+     */
+    void AddItem(char *name, uint8_t *value, uint8_t interval, Items *menu);
+    void AddItem(char *name, int8_t *value, uint8_t interval, Items *menu);
+    void AddItem(char *name, uint16_t *value, uint16_t interval, Items *menu);
+    void AddItem(char *name, int16_t *value, uint16_t interval, Items *menu);
+    void AddItem(char *name, uint32_t *value, uint32_t interval, Items *menu);
+    void AddItem(char *name, int32_t *value, uint32_t interval, Items *menu);
+    void AddItem(char *name, float *value, float interval, Items *menu);
+    void AddItem(char *name, bool *value, char *true_text, char *false_text, Items *menu);
+    void AddItem(char *menu_name, Items *menu);
+    void AddItem(char *name, std::function<void()> f, Items *menu);
 
-	/*
-	 * Entry of menu
-	 */
-	void EnterMenu(Items *menu);
+    /*
+     * Entry of menu
+     */
+    void EnterMenu(Items *menu);
 
 private:
-	bool is_landscape;
-	libsc::St7735r *lcd;
-	libsc::LcdConsole *console;
-	uint8_t max_string_width; //first char count as one
-	uint8_t max_row; //first row count as one
-	libsc::Joystick *joystick;
-	libsc::BatteryMeter *battery_meter;
-	libbase::k60::Flash *flash;
-	uint16_t flash_sum = 0;
-	std::vector<uint8_t*> uint8_data;
-	std::vector<int8_t*> int8_data;
-	std::vector<uint16_t*> uint16_data;
-	std::vector<int16_t*> int16_data;
-	std::vector<uint32_t*> uint32_data;
-	std::vector<int32_t*> int32_data;
-	std::vector<float*> float_data;
-	std::vector<bool*> bool_data;
-	std::vector<uint8_t> uint8_backup;
-	std::vector<int8_t> int8_backup;
-	std::vector<uint16_t> uint16_backup;
-	std::vector<int16_t> int16_backup;
-	std::vector<uint32_t> uint32_backup;
-	std::vector<int32_t> int32_backup;
-	std::vector<float> float_backup;
-	std::vector<bool> bool_backup;
-	std::vector<std::function<void()>> func_vector;
-	int8_t focus = 0;
-	bool item_selected = false;
+    bool is_landscape;
+    libsc::St7735r *lcd;
+    libsc::LcdConsole *console;
+    uint8_t max_string_width; //first char count as one
+    uint8_t max_row; //first row count as one
+    libsc::Joystick *joystick;
+    libsc::BatteryMeter *battery_meter;
+    libbase::k60::Flash *flash;
+    uint16_t flash_sum = 0;
+    std::vector<uint8_t*> uint8_data;
+    std::vector<int8_t*> int8_data;
+    std::vector<uint16_t*> uint16_data;
+    std::vector<int16_t*> int16_data;
+    std::vector<uint32_t*> uint32_data;
+    std::vector<int32_t*> int32_data;
+    std::vector<float*> float_data;
+    std::vector<bool*> bool_data;
+    std::vector<uint8_t> uint8_backup;
+    std::vector<int8_t> int8_backup;
+    std::vector<uint16_t> uint16_backup;
+    std::vector<int16_t> int16_backup;
+    std::vector<uint32_t> uint32_backup;
+    std::vector<int32_t> int32_backup;
+    std::vector<float> float_backup;
+    std::vector<bool> bool_backup;
+    std::vector<std::function<void()>> func_vector;
+    int8_t focus = 0;
+    bool item_selected = false;
 
-	void PrintItem(Item item, uint8_t row);
+    void PrintItem(Item item, uint8_t row);
 
-	void MenuAction(Items *menu);
+    void MenuAction(Items *menu);
 
-	void ChangeItemValue(Item item);
+    void ChangeItemValue(Item item);
 
-	void Load();
-	void Save();
-	void Reset();
-	void Reset(Item item);
+    void Load();
+    void Save();
+    void Reset();
+    void Reset(Item item);
 };
 
 /*

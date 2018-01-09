@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-typedef int (*FwriteHandler)(int file, char *ptr, int len);
+typedef int (* FwriteHandler)(int file, char* ptr, int len);
 extern FwriteHandler g_fwrite_handler;
 
 /**

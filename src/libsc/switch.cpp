@@ -18,8 +18,7 @@
 
 using namespace LIBBASE_NS;
 
-namespace libsc
-{
+namespace libsc {
 
 #ifdef LIBSC_USE_SWITCH
 
@@ -29,77 +28,76 @@ namespace
 #if LIBSC_USE_SWITCH == 1
 inline Pin::Name GetPin(const uint8_t id)
 {
-	if (id != 0)
-	{
-		assert(false);
-	}
-	return LIBSC_SWITCH0;
+    if (id != 0)
+    {
+        assert(false);
+    }
+    return LIBSC_SWITCH0;
 }
 
 #else
 inline Pin::Name GetPin(const uint8_t id)
 {
-	switch (id)
-	{
-	default:
-		assert(false);
-		// no break
+    switch (id)
+    {
+    default:
+        assert(false);
+        // no break
 
-	case 0:
-		return LIBSC_SWITCH0;
+    case 0:
+        return LIBSC_SWITCH0;
 
-	case 1:
-		return LIBSC_SWITCH1;
+    case 1:
+        return LIBSC_SWITCH1;
 
 #if LIBSC_USE_SWITCH > 2
-	case 2:
-		return LIBSC_SWITCH2;
+    case 2:
+        return LIBSC_SWITCH2;
 #endif
 
 #if LIBSC_USE_SWITCH > 3
-	case 3:
-		return LIBSC_SWITCH3;
+    case 3:
+        return LIBSC_SWITCH3;
 #endif
 
 #if LIBSC_USE_SWITCH > 4
-	case 4:
-		return LIBSC_SWITCH4;
+    case 4:
+        return LIBSC_SWITCH4;
 #endif
 
 #if LIBSC_USE_SWITCH > 5
-	case 5:
-		return LIBSC_SWITCH5;
+    case 5:
+        return LIBSC_SWITCH5;
 #endif
-	}
+    }
 }
 
 #endif
 
 Gpi::Config GetGpiConfig(const uint8_t id)
 {
-	Gpi::Config config;
-	config.pin = GetPin(id);
-	config.config.set(Pin::Config::ConfigBit::kPassiveFilter);
-	return config;
+    Gpi::Config config;
+    config.pin = GetPin(id);
+    config.config.set(Pin::Config::ConfigBit::kPassiveFilter);
+    return config;
 }
 
 }
 
 Switch::Switch(const Config &config)
-		: m_pin(GetGpiConfig(config.id)),
-		  m_is_active_low(config.is_active_low)
+        : m_pin(GetGpiConfig(config.id)),
+          m_is_active_low(config.is_active_low)
 {}
 
 bool Switch::IsOn() const
 {
-	return (m_pin.Get() ^ m_is_active_low);
+    return (m_pin.Get() ^ m_is_active_low);
 }
 
 #else
 Switch::Switch(const Config&)
-		: m_pin(nullptr), m_is_active_low(false)
-{
-	LOG_DL("Configured not to use Switch");
+    : m_pin(nullptr), m_is_active_low(false) {
+  LOG_DL("Configured not to use Switch");
 }
 bool Switch::IsOn() const { return false; }
 

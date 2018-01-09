@@ -9,8 +9,7 @@
 
 #pragma once
 
-namespace libsc
-{
+namespace libsc {
 
 #if defined(K60_INNO)
 extern const int kGuardK60Inno;

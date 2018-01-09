@@ -21,9 +21,9 @@
 
 using namespace std;
 
-typedef struct
-{
-	__IO uint32_t REG[8];                            /**< Register file register, array offset: 0x0, array step: 0x4 */
+typedef struct {
+  __IO uint32_t
+  REG[8];                            /**< Register file register, array offset: 0x0, array step: 0x4 */
 } RFSYS_Type;
 
 /* REG Bit Fields */
@@ -44,59 +44,47 @@ typedef struct
 #define RFSYS_BASE                               (0x40041000u)
 #define RFSYS                                    ((RFSYS_Type *)RFSYS_BASE)
 
-namespace libbase
-{
-namespace kl26
-{
+namespace libbase {
+namespace kl26 {
 
-RegFile::RegFile()
-{}
+RegFile::RegFile() {}
 
-void RegFile::Init()
-{}
+void RegFile::Init() {}
 
-void RegFile::WriteSystem(const Uint seek, const Byte *data, const size_t size)
-{
-	if (seek >= sizeof(RFSYS_Type))
-	{
-		assert(false);
-		return;
-	}
-	void *to = ((Byte*)RFSYS->REG) + seek;
-	memcpy(to, data, std::min(size, sizeof(RFSYS_Type) - seek));
+void RegFile::WriteSystem(const Uint seek, const Byte* data, const size_t size) {
+  if (seek >= sizeof(RFSYS_Type)) {
+    assert(false);
+    return;
+  }
+  void* to = ((Byte*) RFSYS->REG) + seek;
+  memcpy(to, data, std::min(size, sizeof(RFSYS_Type) - seek));
 }
 
-void RegFile::WriteSystem(const Uint seek, const Byte data)
-{
-	if (seek >= sizeof(RFSYS_Type))
-	{
-		assert(false);
-		return;
-	}
-	((volatile Byte*)RFSYS->REG)[seek] = data;
+void RegFile::WriteSystem(const Uint seek, const Byte data) {
+  if (seek >= sizeof(RFSYS_Type)) {
+    assert(false);
+    return;
+  }
+  ((volatile Byte*) RFSYS->REG)[seek] = data;
 }
 
-Byte RegFile::ReadSystem(const Uint seek)
-{
-	if (seek >= sizeof(RFSYS_Type))
-	{
-		assert(false);
-		return 0;
-	}
-	return ((volatile Byte*)RFSYS->REG)[seek];
+Byte RegFile::ReadSystem(const Uint seek) {
+  if (seek >= sizeof(RFSYS_Type)) {
+    assert(false);
+    return 0;
+  }
+  return ((volatile Byte*) RFSYS->REG)[seek];
 }
 
-vector<Byte> RegFile::ReadSystem(const Uint seek, const size_t size)
-{
-	if (seek >= sizeof(RFSYS_Type))
-	{
-		assert(false);
-		return {};
-	}
-	vector<Byte> product(std::min(size, sizeof(RFSYS_Type) - seek));
-	void *from = ((Byte*)RFSYS->REG) + seek;
-	memcpy(product.data(), from, product.size());
-	return product;
+vector<Byte> RegFile::ReadSystem(const Uint seek, const size_t size) {
+  if (seek >= sizeof(RFSYS_Type)) {
+    assert(false);
+    return {};
+  }
+  vector<Byte> product(std::min(size, sizeof(RFSYS_Type) - seek));
+  void* from = ((Byte*) RFSYS->REG) + seek;
+  memcpy(product.data(), from, product.size());
+  return product;
 }
 
 }

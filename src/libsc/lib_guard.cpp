@@ -8,8 +8,7 @@
 
 #include "libsc/lib_guard.h"
 
-namespace libsc
-{
+namespace libsc {
 
 #if defined(K60_INNO)
 const int kGuardK60Inno = 0;

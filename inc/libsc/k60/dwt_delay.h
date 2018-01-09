@@ -14,18 +14,14 @@
 
 #include "libsc/delay.h"
 
-namespace libsc
-{
-namespace k60
-{
+namespace libsc {
+namespace k60 {
 
-class DwtDelay : public Delay
-{
-public:
-	void DelayUs(const uint16_t us) override
-	{
-		libbase::k60::Dwt::DelayUs(us);
-	}
+class DwtDelay : public Delay {
+ public:
+  void DelayUs(const uint16_t us) override {
+    libbase::k60::Dwt::DelayUs(us);
+  }
 };
 
 }
